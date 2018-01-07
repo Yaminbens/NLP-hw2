@@ -1,12 +1,11 @@
 import numpy as np
-
+from copy import copy
 
 class Features:
 
     def __init__(self, sentences):
-        idx = 0.0
+        idx = 0
         self.f1, idx = self.f_parent_posp(sentences,idx)
-        print(self.f1)
         self.f2, idx = self.f_parent(sentences,idx)
         self.f3, idx = self.f_posp(sentences, idx)
         self.f4, idx = self.f_child_posc(sentences,idx)
@@ -17,9 +16,13 @@ class Features:
         self.f13, idx = self.f_posp_posc(sentences,idx)
 
         self.f_len = idx-1
+        print(idx)
         self.features_v = {}
         for d in (self.f1, self.f2, self.f3, self.f4, self.f5, self.f6, self.f8, self.f10, self.f13):
             self.features_v.update(d)
+
+        self.f_v_stats = self.stats(sentences, copy(self.features_v))
+        print(self.f_v_stats)
 
     #feature1: parent word + pos(parent)
     def f_parent_posp(self,sentences, idx):
@@ -126,4 +129,22 @@ class Features:
                         num += 1
         return dic, num
 
+    def stats(self,sentences, dict):
+        dic = dict
+        for tag in dict:
+            dic[tag] = 0
 
+        for sentence in sentences:
+            for parent, children in sentence.word_children.items():
+                dic[parent+sentence.word_pos[parent]] += 1
+                dic[parent] += 1
+                dic[sentence.word_pos[parent]] += 1
+                for child in children:
+                    dic[child + sentence.word_pos[child]] += 1
+                    dic[child] += 1
+                    dic[sentence.word_pos[child]] += 1
+                    dic[parent + child + sentence.word_pos[child]] += 1
+                    dic[parent + sentence.word_pos[parent] + sentence.word_pos[child]] += 1
+                    dic[sentence.word_pos[parent] + sentence.word_pos[child]] += 1
+
+        return dic
