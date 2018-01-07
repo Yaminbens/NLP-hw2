@@ -1,8 +1,11 @@
-
-from Dict import *
+from Features import *
+from Parser import *
 
 def main():
-    d = Dict("dum")
+    d = Parser("dum")
+    f = Features(d.sentences)
+
+
 
 if __name__ == "__main__":
     main()

@@ -14,7 +14,7 @@
 14	nonexecutive	_	JJ	_	_	15	NMOD	_	_
 15	director	_	NN	_	_	12	PMOD	_	_
 16	Nov.	_	NNP	_	_	9	VMOD	_	_
-    17	29	_	CD	_	_	16	NMOD	_	_
+17	29	_	CD	_	_	16	NMOD	_	_
 18	.	_	.	_	_	8	P	_	_
 
 1	Mr.	_	NNP	_	_	2	NAME	_	_
