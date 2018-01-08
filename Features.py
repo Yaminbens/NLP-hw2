@@ -15,13 +15,13 @@ class Features:
         self.f10, idx = self.f_parent_posp_posc(sentences,idx)
         self.f13, idx = self.f_posp_posc(sentences,idx)
 
-        self.f_len = idx-1
+        self.f_len = idx-1 #length of feature vector
         print(idx)
-        self.features_v = {}
+        self.f_dict = {}
         for d in (self.f1, self.f2, self.f3, self.f4, self.f5, self.f6, self.f8, self.f10, self.f13):
-            self.features_v.update(d)
+            self.f_dict.update(d)
 
-        self.f_v_stats = self.stats(sentences, copy(self.features_v))
+        self.f_v_stats = self.stats(sentences, copy(self.f_dict))
         print(self.f_v_stats)
 
     #feature1: parent word + pos(parent)
@@ -30,9 +30,10 @@ class Features:
         num = idx
         for sentence in sentences:
             for parent in sentence.word_children.keys():
-                if parent+sentence.word_pos[parent] not in dic:
-                    dic.update({parent+sentence.word_pos[parent]:num})
-                    num += 1
+                for pos in sentence.word_pos[parent]:
+                    if parent+pos not in dic:
+                        dic.update({parent+pos:num})
+                        num += 1
         return dic, num
 
     #feature2: parent word
@@ -52,9 +53,10 @@ class Features:
         num = idx
         for sentence in sentences:
             for parent in sentence.word_children.keys():
-                if sentence.word_pos[parent] not in dic:
-                    dic.update({sentence.word_pos[parent]: num})
-                    num += 1
+                for pos in sentence.word_pos[parent]:
+                    if pos not in dic:
+                        dic.update({pos: num})
+                        num += 1
         return dic, num
 
     # feature4: child word + pos(parent)
@@ -64,9 +66,10 @@ class Features:
         for sentence in sentences:
             for parent,children in sentence.word_children.items():
                 for child in children:
-                    if child + sentence.word_pos[child] not in dic:
-                        dic.update({child + sentence.word_pos[child]: num})
-                        num += 1
+                    for pos in sentence.word_pos[child]:
+                        if child + pos not in dic:
+                            dic.update({child + pos: num})
+                            num += 1
         return dic, num
 
     # feature5: child word
@@ -88,9 +91,10 @@ class Features:
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
                 for child in children:
-                    if sentence.word_pos[child] not in dic:
-                        dic.update({sentence.word_pos[child]: num})
-                        num += 1
+                    for pos in sentence.word_pos[child]:
+                        if pos not in dic:
+                            dic.update({pos: num})
+                            num += 1
         return dic, num
 
     # feature8: parent word + child word + POS of child
@@ -100,8 +104,9 @@ class Features:
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
                 for child in children:
-                    if parent+child+sentence.word_pos[child] not in dic:
-                        dic.update({parent+child+sentence.word_pos[child]: num})
+                    for posc in sentence.word_pos[child]:
+                        if parent+child+posc not in dic:
+                            dic.update({parent+child+posc: num})
                         num += 1
         return dic, num
 
@@ -112,9 +117,11 @@ class Features:
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
                 for child in children:
-                    if parent + sentence.word_pos[parent] + sentence.word_pos[child] not in dic:
-                        dic.update({parent + sentence.word_pos[parent] + sentence.word_pos[child]: num})
-                        num += 1
+                    for posp in sentence.word_pos[parent]:
+                        for posc in sentence.word_pos[child]:
+                            if parent + posp + posc not in dic:
+                                dic.update({parent + posp + posc: num})
+                                num += 1
         return dic, num
 
     # feature13: POS of parent + POS of child
@@ -124,9 +131,11 @@ class Features:
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
                 for child in children:
-                    if sentence.word_pos[parent] + sentence.word_pos[child] not in dic:
-                        dic.update({sentence.word_pos[parent] + sentence.word_pos[child]: num})
-                        num += 1
+                    for posp in sentence.word_pos[parent]:
+                        for posc in sentence.word_pos[child]:
+                            if posp + posc not in dic:
+                                dic.update({posp + posc: num})
+                                num += 1
         return dic, num
 
     def stats(self,sentences, dict):
@@ -136,15 +145,42 @@ class Features:
 
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
-                dic[parent+sentence.word_pos[parent]] += 1
+                for posp in sentence.word_pos[parent]:
+                    dic[parent+posp] += 1
+                    dic[posp] += 1
                 dic[parent] += 1
-                dic[sentence.word_pos[parent]] += 1
                 for child in children:
-                    dic[child + sentence.word_pos[child]] += 1
                     dic[child] += 1
-                    dic[sentence.word_pos[child]] += 1
-                    dic[parent + child + sentence.word_pos[child]] += 1
-                    dic[parent + sentence.word_pos[parent] + sentence.word_pos[child]] += 1
-                    dic[sentence.word_pos[parent] + sentence.word_pos[child]] += 1
+                    for posc in sentence.word_pos[child]:
+                        dic[child + posc] += 1
+                        dic[posc] += 1
+                        dic[parent + child + posc] += 1
+                        for posp in sentence.word_pos[parent]:
+                            dic[parent + posp + posc] += 1
+                            dic[posp + posc] += 1
 
         return dic
+
+
+    def f_xy(self,sentence):
+        index_vec = []
+
+        for parent, children in sentence.word_children.items():
+            index_vec.append(self.f_dict[parent + sentence.word_pos[parent]])
+            index_vec.append(self.f_dict[parent])
+            index_vec.append(self.f_dict[sentence.word_pos[parent]])
+            for child in children:
+                index_vec.append(self.f_dict[child + sentence.word_pos[child]])
+                index_vec.append(self.f_dict[child])
+                index_vec.append(self.f_dict[sentence.word_pos[child]])
+                index_vec.append(self.f_dict[parent + child + sentence.word_pos[child]])
+                index_vec.append(self.f_dict[parent + sentence.word_pos[parent] + sentence.word_pos[child]])
+                index_vec.append(self.f_dict[sentence.word_pos[parent] + sentence.word_pos[child]])
+
+        return index_vec
+
+    def w_f_xy(self,w,f_xy):
+        num = 0.0
+        num = sum([w[x] for x in f_xy])
+        return num
+
