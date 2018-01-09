@@ -162,25 +162,27 @@ class Features:
         return dic
 
 
-    def f_xy(self,sentence):
+    def f_xy(self,word_children, word_pos):
         index_vec = []
 
-        for parent, children in sentence.word_children.items():
-            index_vec.append(self.f_dict[parent + sentence.word_pos[parent]])
+        for parent, children in word_children.items():
+            for posp in word_pos[parent]:
+                index_vec.append(self.f_dict[parent + posp])
+                index_vec.append(self.f_dict[posp])
             index_vec.append(self.f_dict[parent])
-            index_vec.append(self.f_dict[sentence.word_pos[parent]])
             for child in children:
-                index_vec.append(self.f_dict[child + sentence.word_pos[child]])
                 index_vec.append(self.f_dict[child])
-                index_vec.append(self.f_dict[sentence.word_pos[child]])
-                index_vec.append(self.f_dict[parent + child + sentence.word_pos[child]])
-                index_vec.append(self.f_dict[parent + sentence.word_pos[parent] + sentence.word_pos[child]])
-                index_vec.append(self.f_dict[sentence.word_pos[parent] + sentence.word_pos[child]])
+                for posc in word_pos[child]:
+                    index_vec.append(self.f_dict[child + posc])
+                    index_vec.append(self.f_dict[posc])
+                    index_vec.append(self.f_dict[parent + child + posc])
+                    for posp in word_pos[parent]:
+                        index_vec.append(self.f_dict[parent + posp + posc])
+                        index_vec.append(self.f_dict[posp + posc])
 
         return index_vec
 
-    def w_f_xy(self,w,f_xy):
-        num = 0.0
-        num = sum([w[x] for x in f_xy])
-        return num
+
+
+
 

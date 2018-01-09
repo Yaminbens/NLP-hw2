@@ -8,6 +8,7 @@ class Sentence:
         self.word_pos = {} # inser word get POS
         self.word_parent = {} # insert word, get parent word
         self.word_children = {} # insert word, get all childre words
+        self.parent_child = []
 
         #update indices and POS
         for i,word in enumerate(slist):
@@ -41,10 +42,18 @@ class Sentence:
             self.word_children[self.idx_word[word[3]]].append(word[1])
             # print(word[1])
 
+        for parent in self.word_children:
+            for child in self.word_children[parent]:
+                self.parent_child.append(parent+child)
 
-    #
-    # def __contains__(self, x):
-    #     return x in self.word_idx.keys()
-    #
-    # def __iter__(self):
-    #     return iter(self.word_idx.keys())
+    def sentence_fc(self): #fully connected: returns dic of parents with all other edges connected
+        parents = {}
+        for word in self.word_idx:
+            parents.update({word: []})
+            for child in self.word_idx:
+                if child != 'ROOT':
+                    parents[word].append(child)
+
+        return parents
+
+
