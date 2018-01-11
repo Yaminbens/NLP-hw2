@@ -9,6 +9,7 @@ class Sentence:
         self.word_parent = {} # insert word, get parent word
         self.word_children = {} # insert word, get all childre words
         self.parent_child = []
+        self.word_children_inf = []
 
         #update indices and POS
         for i,word in enumerate(slist):

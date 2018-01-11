@@ -1,4 +1,5 @@
-import numpy as np
+import re
+
 
 def f_uv(feats, sentence, u, v):
     # u,v = words indices in sentence
@@ -46,3 +47,34 @@ def weight_calc(sentence,u,v,weights):
         for vidx in sentence.word_idx[v]:
             num += weights[uidx][vidx]
     return num
+
+
+def evaluate(file1, file2):
+    perc = 0.0
+    num = 0.0
+    with open(file1, 'r') as f1:
+        s1 = []
+        for line in f1:
+            if line == '\n':
+                continue
+            else:
+                match = re.split("\\s+", line)
+                s1.append(match[6])
+    with open(file2, 'r') as f2:
+        s2 = []
+        for line in f2:
+            if line == '\n':
+                continue
+            else:
+                match = re.split("\\s+", line)
+                s2.append(match[6])
+
+    # for w1,w2 in zip(s1,s2):
+    #     print(w1,w2)
+
+    for w1,w2 in zip(s1,s2):
+        if w1 ==w2:
+            perc += 1
+        num += 1
+
+    print("correct: ", perc/num)
