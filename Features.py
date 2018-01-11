@@ -15,14 +15,14 @@ class Features:
         self.f10, idx = self.f_parent_posp_posc(sentences,idx)
         self.f13, idx = self.f_posp_posc(sentences,idx)
 
-        self.f_len = idx-1 #length of feature vector
-        print(idx)
+        self.f_len = idx #length of feature vector
+        # print(idx)
         self.f_dict = {}
         for d in (self.f1, self.f2, self.f3, self.f4, self.f5, self.f6, self.f8, self.f10, self.f13):
             self.f_dict.update(d)
 
         self.f_v_stats = self.stats(sentences, copy(self.f_dict))
-        print(self.f_v_stats)
+        # print(self.f_v_stats)
 
     #feature1: parent word + pos(parent)
     def f_parent_posp(self,sentences, idx):
@@ -161,24 +161,50 @@ class Features:
 
         return dic
 
-
     def f_xy(self,word_children, word_pos):
-        index_vec = []
+        index_vec = np.zeros(self.f_len)
 
         for parent, children in word_children.items():
             for posp in word_pos[parent]:
-                index_vec.append(self.f_dict[parent + posp])
-                index_vec.append(self.f_dict[posp])
-            index_vec.append(self.f_dict[parent])
+                try:
+                    index_vec[self.f_dict[parent + posp]] += 1
+                except:
+                    pass
+                try:
+                    index_vec[self.f_dict[posp]] += 1
+                except:
+                    pass
+            try:
+                index_vec[self.f_dict[parent]] += 1
+            except:
+                pass
             for child in children:
-                index_vec.append(self.f_dict[child])
+                try:
+                    index_vec[self.f_dict[child]] += 1
+                except:
+                    pass
                 for posc in word_pos[child]:
-                    index_vec.append(self.f_dict[child + posc])
-                    index_vec.append(self.f_dict[posc])
-                    index_vec.append(self.f_dict[parent + child + posc])
+                    try:
+                        index_vec[self.f_dict[child + posc]] += 1
+                    except:
+                        pass
+                    try:
+                        index_vec[self.f_dict[posc]] += 1
+                    except:
+                        pass
+                    try:
+                        index_vec[self.f_dict[parent + child + posc]] += 1
+                    except:
+                        pass
                     for posp in word_pos[parent]:
-                        index_vec.append(self.f_dict[parent + posp + posc])
-                        index_vec.append(self.f_dict[posp + posc])
+                        try:
+                            index_vec[self.f_dict[parent + posp + posc]] += 1
+                        except:
+                            pass
+                        try:
+                            index_vec[self.f_dict[posp + posc]] += 1
+                        except:
+                            pass
 
         return index_vec
 
