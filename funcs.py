@@ -5,18 +5,46 @@ def f_uv(feats, sentence, u, v):
     # u,v = words indices in sentence
     index_vec = []
     for posp in sentence.word_pos[sentence.idx_word[u]]:
-        index_vec.append(feats.f_dict[sentence.idx_word[u] + posp])
-        index_vec.append(feats.f_dict[posp])
-    index_vec.append(feats.f_dict[sentence.idx_word[u]])
-    index_vec.append(feats.f_dict[sentence.idx_word[v]])
+        try:
+            index_vec.append(feats.f_dict[sentence.idx_word[u][:-len(u)] + posp])
+        except:
+            pass
+        try:
+            index_vec.append(feats.f_dict[posp])
+        except:
+            pass
+    try:
+        index_vec.append(feats.f_dict[sentence.idx_word[u][:-len(u)]])
+    except:
+        pass
+    try:
+        index_vec.append(feats.f_dict[sentence.idx_word[v][:-len(v)]])
+    except:
+        pass
     for posc in sentence.word_pos[sentence.idx_word[v]]:
-        index_vec.append(feats.f_dict[sentence.idx_word[v] + posc])
-        index_vec.append(feats.f_dict[posc])
-        if sentence.idx_word[u] + sentence.idx_word[v] in sentence.parent_child:
-            index_vec.append(feats.f_dict[sentence.idx_word[u] + sentence.idx_word[v] + posc])
+        try:
+            index_vec.append(feats.f_dict[sentence.idx_word[v][:-len(v)] + posc])
+        except:
+            pass
+        try:
+            index_vec.append(feats.f_dict[posc])
+        except:
+            pass
+        if sentence.idx_word[u][:-len(u)] + sentence.idx_word[v][:-len(v)] in sentence.parent_child:
+            try:
+                index_vec.append(feats.f_dict[sentence.idx_word[u][:-len(u)] +
+                                          sentence.idx_word[v][:-len(v)] + posc])
+            except:
+                pass
             for posp in sentence.word_pos[sentence.idx_word[u]]:
-                index_vec.append(feats.f_dict[sentence.idx_word[u] + posp + posc])
-                index_vec.append(feats.f_dict[posp + posc])
+                try:
+                    index_vec.append(feats.f_dict[sentence.idx_word[u][:-len(u)] + posp + posc])
+                except:
+                    pass
+                try:
+                    index_vec.append(feats.f_dict[posp + posc])
+                except:
+                    pass
 
     return index_vec
 

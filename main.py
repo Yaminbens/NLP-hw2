@@ -10,13 +10,13 @@ def main():
     f = Features(d.sentences)
     # w = np.zeros(f.f_len)
     w = np.random.rand(f.f_len)
-    ITER = 50
+    ITER = 20
     tt = time()
     for i in range(ITER):
         Perceptron(d.sentences,w,f)
     print(time()-tt)
     print("w:\n",w)
-    pickle.dump(w, open("weights_vec/" + "w" + str(ITER)+"_Rand", 'wb'))
+    pickle.dump(w, open("weights_vec/" + "w" + str(ITER) + "_RAND", 'wb'))
 
 
 if __name__ == "__main__":
