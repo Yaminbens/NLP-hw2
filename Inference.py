@@ -20,7 +20,7 @@ class Inference:
             for sentence in self.sentences:
                 for idx in sentence.idx_word:
                     if idx != '*':
-                        # print(sentence.word_children_inf)
+                        print(sentence.word_children_inf)
                         for parent in sentence.word_children_inf:
                             if sentence.idx_word[idx] in sentence.word_children_inf[parent]:
                                 paridx = sentence.word_idx[parent]

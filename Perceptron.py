@@ -13,10 +13,9 @@ class Perceptron:
             weights = weights_calc(w, sentence, feats)
             all_successors = sentence.sentence_fc()
             graph = Digraph(all_successors, lambda u, v: weights[u][v])
-            graph = graph.greedy()
+            graph = graph.mst()
             w += feats.f_xy(sentence.word_children, sentence.word_pos, sentence.word_idx) - \
                  feats.f_xy(graph.successors, sentence.word_pos,sentence.word_idx)
-
 
 
 

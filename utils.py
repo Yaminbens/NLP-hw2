@@ -3,7 +3,7 @@ DUM = "dum"
 TRAIN = "train.labeled"
 TEST = "test.labeled"
 
-ITER = 30
+ITER = 20
 THRESHOLD = 0
 
 W = "w_" + str(ITER) + "_RAND"
