@@ -1,5 +1,6 @@
 import numpy as np
 from copy import copy
+import utils
 
 class Features:
 
@@ -23,6 +24,19 @@ class Features:
 
         self.f_v_stats = self.stats(sentences, copy(self.f_dict))
         # print(self.f_v_stats)
+        self.refine(utils.THRESHOLD)
+
+    def refine(self, threshold):
+        for feat in self.f_v_stats.keys():
+            if self.f_v_stats[feat] < threshold:
+                del self.f_dict[feat]
+        idx = 0
+        for feat in self.f_dict:
+            self.f_dict[feat] = idx
+            idx += 1
+        self.f_len = idx
+
+
 
     #feature1: parent word + pos(parent)
     def f_parent_posp(self,sentences, idx):

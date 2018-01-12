@@ -1,12 +1,15 @@
 
 DUM = "dum"
-
-ITER = 30
-
-W = "w" + str(ITER) + "_RAND"
-W_VEC = "weights_vec/" + W
 TRAIN = "train.labeled"
 TEST = "test.labeled"
 
-TRAIN_R = "results/"+"train with " + W
-TEST_R = "results/"+"test with " + W
+ITER = 30
+THRESHOLD = 0
+
+W = "w_" + str(ITER) + "_RAND"
+W_VEC = "weights_vec/" + W
+
+FEAT = "_th_" + str(THRESHOLD)
+
+TRAIN_R = "results/"+"train with " + W +FEAT
+TEST_R = "results/"+"test with " + W +FEAT
