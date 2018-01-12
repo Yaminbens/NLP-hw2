@@ -20,13 +20,13 @@ class Inference:
             for sentence in self.sentences:
                 for idx in sentence.idx_word:
                     if idx != '*':
+                        # print(sentence.word_children_inf)
                         for parent in sentence.word_children_inf:
                             if sentence.idx_word[idx] in sentence.word_children_inf[parent]:
-                                paridx = sentence.word_idx[parent][0]
-                                continue
-                        file.write(idx + "	" + sentence.idx_word[idx][:-len(idx)] + "	_	" + # index and word
-                                   sentence.word_pos[sentence.idx_word[idx]][0] + "	_	_	" + #POS
-                                   paridx + "	_	_	_\n") #token head
+                                paridx = sentence.word_idx[parent]
+                                file.write(idx + "	" + sentence.idx_word[idx][:-len(idx)] + "	_	" + # index and word
+                                       sentence.word_pos[sentence.idx_word[idx]] + "	_	_	" + #POS
+                                       paridx + "	_	_	_\n") #token head
 
                 file.write("\n")
 

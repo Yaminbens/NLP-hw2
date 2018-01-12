@@ -4,15 +4,15 @@ import re
 def f_uv(feats, sentence, u, v):
     # u,v = words indices in sentence
     index_vec = []
-    for posp in sentence.word_pos[sentence.idx_word[u]]:
-        try:
-            index_vec.append(feats.f_dict[sentence.idx_word[u][:-len(u)] + posp])
-        except:
-            pass
-        try:
-            index_vec.append(feats.f_dict[posp])
-        except:
-            pass
+    posp = sentence.word_pos[sentence.idx_word[u]]
+    try:
+        index_vec.append(feats.f_dict[sentence.idx_word[u][:-len(u)] + posp])
+    except:
+        pass
+    try:
+        index_vec.append(feats.f_dict[posp])
+    except:
+        pass
     try:
         index_vec.append(feats.f_dict[sentence.idx_word[u][:-len(u)]])
     except:
@@ -21,30 +21,28 @@ def f_uv(feats, sentence, u, v):
         index_vec.append(feats.f_dict[sentence.idx_word[v][:-len(v)]])
     except:
         pass
-    for posc in sentence.word_pos[sentence.idx_word[v]]:
-        try:
-            index_vec.append(feats.f_dict[sentence.idx_word[v][:-len(v)] + posc])
-        except:
-            pass
-        try:
-            index_vec.append(feats.f_dict[posc])
-        except:
-            pass
-        if sentence.idx_word[u][:-len(u)] + sentence.idx_word[v][:-len(v)] in sentence.parent_child:
-            try:
-                index_vec.append(feats.f_dict[sentence.idx_word[u][:-len(u)] +
-                                          sentence.idx_word[v][:-len(v)] + posc])
-            except:
-                pass
-            for posp in sentence.word_pos[sentence.idx_word[u]]:
-                try:
-                    index_vec.append(feats.f_dict[sentence.idx_word[u][:-len(u)] + posp + posc])
-                except:
-                    pass
-                try:
-                    index_vec.append(feats.f_dict[posp + posc])
-                except:
-                    pass
+    posc = sentence.word_pos[sentence.idx_word[v]]
+    try:
+        index_vec.append(feats.f_dict[sentence.idx_word[v][:-len(v)] + posc])
+    except:
+        pass
+    try:
+        index_vec.append(feats.f_dict[posc])
+    except:
+        pass
+    try:
+        index_vec.append(feats.f_dict[sentence.idx_word[u][:-len(u)] +
+                                  sentence.idx_word[v][:-len(v)] + posc])
+    except:
+        pass
+    try:
+        index_vec.append(feats.f_dict[sentence.idx_word[u][:-len(u)] + posp + posc])
+    except:
+        pass
+    try:
+        index_vec.append(feats.f_dict[posp + posc])
+    except:
+        pass
 
     return index_vec
 
@@ -62,19 +60,11 @@ def weights_calc(w, sentence, feats):
             if parent not in weights:
                 weights.update({parent: {}})
             if child not in weights[parent]:
-                for uidx in sentence.word_idx[parent]:
-                    for vidx in sentence.word_idx[child]:
-                        weights[parent].update({child: w_f(w, f_uv(feats, sentence, uidx, vidx))})
+                uidx = sentence.word_idx[parent]
+                vidx = sentence.word_idx[child]
+                weights[parent].update({child: w_f(w, f_uv(feats, sentence, uidx, vidx))})
 
     return weights
-
-
-def weight_calc(sentence,u,v,weights):
-    num = 0.0
-    for uidx in sentence.word_idx[u]:
-        for vidx in sentence.word_idx[v]:
-            num += weights[uidx][vidx]
-    return num
 
 
 def evaluate(file1, file2):
