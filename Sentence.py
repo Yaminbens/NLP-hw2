@@ -45,7 +45,7 @@ class Sentence:
         for word in self.word_idx:
             parents.update({word: []})
             for child in self.word_idx:
-                if child != 'ROOT':
+                if child != 'ROOT*':
                     parents[word].append(child)
 
         return parents

@@ -9,8 +9,8 @@ def main():
     d = Parser(utils.TRAIN)
     # d = Parser(utils.DUM)
     f = Features(d.sentences)
-    # w = np.zeros(f.f_len)
-    w = np.random.rand(f.f_len)
+    w = np.zeros(f.f_len)
+    # w = np.random.rand(f.f_len)
     tt = time()
     print("Training model for {} iterations...".format(utils.ITER))
     for i in range(utils.ITER):
