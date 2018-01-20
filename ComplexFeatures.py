@@ -95,8 +95,8 @@ class CFeatures:
         for sentence in sentences:
             for parent in sentence.word_children.keys():
                 pos = sentence.word_pos[parent]
-                if parent[:-len(sentence.word_idx[parent])]+pos not in dic:
-                    dic.update({parent[:-len(sentence.word_idx[parent])]+pos:num})
+                if parent[:-len(sentence.word_idx[parent])]+pos + "f1" not in dic:
+                    dic.update({parent[:-len(sentence.word_idx[parent])]+pos + "f1":num})
                     num += 1
         return dic, num
 
@@ -106,8 +106,8 @@ class CFeatures:
         num = idx
         for sentence in sentences:
             for parent in sentence.word_children.keys():
-                if parent[:-len(sentence.word_idx[parent])] not in dic:
-                    dic.update({parent[:-len(sentence.word_idx[parent])]:num})
+                if parent[:-len(sentence.word_idx[parent])] + "f2" not in dic:
+                    dic.update({parent[:-len(sentence.word_idx[parent])] + "f2":num})
                     num += 1
         return dic, num
 
@@ -118,8 +118,8 @@ class CFeatures:
         for sentence in sentences:
             for parent in sentence.word_children.keys():
                 pos = sentence.word_pos[parent]
-                if pos not in dic:
-                    dic.update({pos: num})
+                if pos + "f3"not in dic:
+                    dic.update({pos + "f3": num})
                     num += 1
 
         return dic, num
@@ -132,8 +132,8 @@ class CFeatures:
             for parent,children in sentence.word_children.items():
                 for child in children:
                     pos = sentence.word_pos[child]
-                    if child[:-len(sentence.word_idx[child])] + pos not in dic:
-                        dic.update({child[:-len(sentence.word_idx[child])] + pos: num})
+                    if child[:-len(sentence.word_idx[child])] + pos + "f4" not in dic:
+                        dic.update({child[:-len(sentence.word_idx[child])] + pos + "f4": num})
                         num += 1
         return dic, num
 
@@ -144,8 +144,8 @@ class CFeatures:
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
                 for child in children:
-                    if child[:-len(sentence.word_idx[child])] not in dic:
-                        dic.update({child[:-len(sentence.word_idx[child])]: num})
+                    if child[:-len(sentence.word_idx[child])] + "f5" not in dic:
+                        dic.update({child[:-len(sentence.word_idx[child])] + "f5": num})
                         num += 1
         return dic, num
 
@@ -157,8 +157,8 @@ class CFeatures:
             for parent, children in sentence.word_children.items():
                 for child in children:
                     pos = sentence.word_pos[child]
-                    if pos not in dic:
-                        dic.update({pos: num})
+                    if pos + "f6" not in dic:
+                        dic.update({pos + "f6": num})
                         num += 1
         return dic, num
 
@@ -171,8 +171,8 @@ class CFeatures:
                 for child in children:
                     posp = sentence.word_pos[parent]
                     posc = sentence.word_pos[child]
-                    if posp+posc+child[:-len(sentence.word_idx[child])] not in dic:
-                        dic.update({posp+posc+child[:-len(sentence.word_idx[child])]: num})
+                    if posp+posc+child[:-len(sentence.word_idx[child])] + "f8" not in dic:
+                        dic.update({posp+posc+child[:-len(sentence.word_idx[child])] + "f8": num})
                         num += 1
         return dic, num
 
@@ -185,8 +185,8 @@ class CFeatures:
                 for child in children:
                     posp = sentence.word_pos[parent]
                     posc = sentence.word_pos[child]
-                    if posp + posc + parent[:-len(sentence.word_idx[parent])] not in dic:
-                        dic.update({posp + posc + parent[:-len(sentence.word_idx[parent])]: num})
+                    if posp + posc + parent[:-len(sentence.word_idx[parent])] + "f10" not in dic:
+                        dic.update({posp + posc + parent[:-len(sentence.word_idx[parent])] + "f10": num})
                         num += 1
         return dic, num
 
@@ -199,8 +199,8 @@ class CFeatures:
                 for child in children:
                     posp = sentence.word_pos[parent]
                     posc = sentence.word_pos[child]
-                    if posp + posc not in dic:
-                        dic.update({posp + posc: num})
+                    if posp + posc + "f13"not in dic:
+                        dic.update({posp + posc + "f13": num})
                         num += 1
         return dic, num
 
@@ -212,8 +212,10 @@ class CFeatures:
             for parent, children in sentence.word_children.items():
                 for child in children:
                     if parent != "ROOT0":
-                        # if int(sentence.word_idx[parent])-1 != int(sentence.word_idx[child]) \
-                        #         and int(sentence.word_idx[child])-1 != int(sentence.word_idx[parent]):
+                        # if int(sentence.word_idx[parent]) - 1 != int(sentence.word_idx[child]) \
+                        #         and int(sentence.word_idx[child]) - 1 != int(sentence.word_idx[parent]) \
+                        #         and int(sentence.word_idx[parent]) + 1 != int(sentence.word_idx[child]) \
+                        #         and int(sentence.word_idx[child]) + 1 != int(sentence.word_idx[parent]):
                             posp = sentence.word_pos[parent]
                             posc = sentence.word_pos[child]
                             posbp_idx = int(sentence.word_idx[parent]) - 1
@@ -225,8 +227,8 @@ class CFeatures:
                             try:
                                 if posbp!= "ROOT" and posbc!= "ROOT":
 
-                                    if posp + posbp + posc + posbc not in dic:
-                                        dic.update({posp + posbp + posc + posbc: num})
+                                    if posp + posbp + posc + posbc + "c1" not in dic:
+                                        dic.update({posp + posbp + posc + posbc + "c1": num})
                                         num += 1
                             except:
                                 pass
@@ -255,8 +257,8 @@ class CFeatures:
                                 posbc = sentence.word_pos[sentence.idx_word[str(posbc_idx)]]
                             try:
                                 if posap != "ROOT" and posbc != "ROOT":
-                                    if posp + posap + posc + posbc not in dic:
-                                        dic.update({posp + posap + posc + posbc: num})
+                                    if posp + posap + posc + posbc + "c2" not in dic:
+                                        dic.update({posp + posap + posc + posbc + "c2" : num})
                                         num += 1
                             except:
                                 pass
@@ -270,22 +272,26 @@ class CFeatures:
             for parent, children in sentence.word_children.items():
                 for child in children:
                     if parent != "ROOT0":
-                        posp = sentence.word_pos[parent]
-                        posc = sentence.word_pos[child]
+                        # if int(sentence.word_idx[parent]) - 1 != int(sentence.word_idx[child]) \
+                        #         and int(sentence.word_idx[child]) - 1 != int(sentence.word_idx[parent]) \
+                        #         and int(sentence.word_idx[parent]) + 1 != int(sentence.word_idx[child]) \
+                        #         and int(sentence.word_idx[child]) + 1 != int(sentence.word_idx[parent]):
+                            posp = sentence.word_pos[parent]
+                            posc = sentence.word_pos[child]
 
-                        posbp_idx = int(sentence.word_idx[parent]) - 1
-                        if posbp_idx >0:
-                            posbp = sentence.word_pos[sentence.idx_word[str(posbp_idx)]]
-                        posac_idx = int(sentence.word_idx[child]) + 1
-                        if posac_idx < sentence.slen:
-                            posac = sentence.word_pos[sentence.idx_word[str(posac_idx)]]
-                        try:
-                            if posbp != "ROOT" and posac != "ROOT":
-                                if posp + posbp + posc + posac not in dic:
-                                    dic.update({posp + posbp + posc + posac: num})
-                                    num += 1
-                        except:
-                            pass
+                            posbp_idx = int(sentence.word_idx[parent]) - 1
+                            if posbp_idx >0:
+                                posbp = sentence.word_pos[sentence.idx_word[str(posbp_idx)]]
+                            posac_idx = int(sentence.word_idx[child]) + 1
+                            if posac_idx < sentence.slen:
+                                posac = sentence.word_pos[sentence.idx_word[str(posac_idx)]]
+                            try:
+                                if posbp != "ROOT" and posac != "ROOT":
+                                    if posp + posbp + posc + posac + "c3" not in dic:
+                                        dic.update({posp + posbp + posc + posac+ "c3" : num})
+                                        num += 1
+                            except:
+                                pass
         return dic, num
 
     # feature c4: POS of parent + POS following of parent + POS of child + POS following of child
@@ -296,21 +302,25 @@ class CFeatures:
             for parent, children in sentence.word_children.items():
                 for child in children:
                     if parent != "ROOT0" and child:
-                        posp = sentence.word_pos[parent]
-                        posc = sentence.word_pos[child]
-                        posap_idx = int(sentence.word_idx[parent]) + 1
-                        if posap_idx < sentence.slen:
-                            posap = sentence.word_pos[sentence.idx_word[str(posap_idx)]]
-                        posac_idx = int(sentence.word_idx[child]) + 1
-                        if posac_idx < sentence.slen:
-                            posac = sentence.word_pos[sentence.idx_word[str(posac_idx)]]
-                        try:
-                            if posap != "ROOT" and posac != "ROOT":
-                                if posp + posap + posc + posac not in dic:
-                                    dic.update({posp + posap + posc + posac: num})
-                                    num += 1
-                        except:
-                            pass
+                        # if int(sentence.word_idx[parent]) - 1 != int(sentence.word_idx[child]) \
+                        #         and int(sentence.word_idx[child]) - 1 != int(sentence.word_idx[parent]) \
+                        #         and int(sentence.word_idx[parent]) + 1 != int(sentence.word_idx[child]) \
+                        #         and int(sentence.word_idx[child]) + 1 != int(sentence.word_idx[parent]):
+                            posp = sentence.word_pos[parent]
+                            posc = sentence.word_pos[child]
+                            posap_idx = int(sentence.word_idx[parent]) + 1
+                            if posap_idx < sentence.slen:
+                                posap = sentence.word_pos[sentence.idx_word[str(posap_idx)]]
+                            posac_idx = int(sentence.word_idx[child]) + 1
+                            if posac_idx < sentence.slen:
+                                posac = sentence.word_pos[sentence.idx_word[str(posac_idx)]]
+                            try:
+                                if posap != "ROOT" and posac != "ROOT":
+                                    if posp + posap + posc + posac + "c4" not in dic:
+                                        dic.update({posp + posap + posc + posac+ "c4" : num})
+                                        num += 1
+                            except:
+                                pass
         return dic, num
 
     # feature c5: POS of parent + POS of middle word + POS of child
@@ -327,8 +337,8 @@ class CFeatures:
                         end_idx = max(int(sentence.word_idx[parent]),int(sentence.word_idx[child]))
                         for idx in range(start_idx+1,end_idx):
                             posm = sentence.word_pos[sentence.idx_word[str(idx)]]
-                            if posp + posm + posc not in dic:
-                                dic.update({posp + posm + posc: num})
+                            if posp + posm + posc + "c5" not in dic:
+                                dic.update({posp + posm + posc+ "c5" : num})
                                 num += 1
         return dic, num
 
@@ -345,10 +355,10 @@ class CFeatures:
                         for idx in range(start_idx + 1, end_idx):
                             middle = sentence.idx_word[str(idx)]
                             if parent[:-len(sentence.word_idx[parent])] + middle[:-len(sentence.word_idx[middle])] \
-                                    + child[:-len(sentence.word_idx[child])] not in dic:
+                                    + child[:-len(sentence.word_idx[child])] + "c6"  not in dic:
                                     dic.update({parent[:-len(sentence.word_idx[parent])] +
                                                             middle[:-len(sentence.word_idx[middle])] +
-                                                            child[:-len(sentence.word_idx[child])]: num})
+                                                            child[:-len(sentence.word_idx[child])] + "c6" : num})
                                     num += 1
         return dic, num
 
@@ -368,9 +378,9 @@ class CFeatures:
                             bchild = sentence.idx_word[str(bchild_idx)]
                         try:
                             if parent[:-len(sentence.word_idx[parent])] + bparent[:-len(sentence.word_idx[bparent])] \
-                                    + child[:-len(sentence.word_idx[child])] + bchild[:-len(sentence.word_idx[bchild])] not in dic:
+                                    + child[:-len(sentence.word_idx[child])] + bchild[:-len(sentence.word_idx[bchild])] + "c7" not in dic:
                                 dic.update({parent[:-len(sentence.word_idx[parent])] + bparent[:-len(sentence.word_idx[bparent])] \
-                                    + child[:-len(sentence.word_idx[child])] + bchild[:-len(sentence.word_idx[bchild])]: num})
+                                    + child[:-len(sentence.word_idx[child])] + bchild[:-len(sentence.word_idx[bchild])] + "c7" : num})
                                 num += 1
                         except:
                             pass
@@ -393,11 +403,11 @@ class CFeatures:
                         try:
                             if parent[:-len(sentence.word_idx[parent])] + aparent[:-len(sentence.word_idx[aparent])] \
                                     + child[:-len(sentence.word_idx[child])] + bchild[
-                                                                               :-len(sentence.word_idx[bchild])] not in dic:
+                                                                               :-len(sentence.word_idx[bchild])] + "c8"  not in dic:
                                 dic.update(
                                     {parent[:-len(sentence.word_idx[parent])] + aparent[:-len(sentence.word_idx[aparent])] \
                                      + child[:-len(sentence.word_idx[child])] + bchild[
-                                                                                :-len(sentence.word_idx[bchild])]: num})
+                                                                                :-len(sentence.word_idx[bchild])] + "c8" : num})
                                 num += 1
                         except:
                             pass
@@ -420,12 +430,12 @@ class CFeatures:
                         if parent[:-len(sentence.word_idx[parent])] + bparent[:-len(sentence.word_idx[bparent])] \
                                 + child[:-len(sentence.word_idx[child])] + achild[
                                                                            :-len(sentence.word_idx[
-                                                                                     achild])] not in dic:
+                                                                                     achild])] + "c9" not in dic:
                             dic.update(
                                 {parent[:-len(sentence.word_idx[parent])] + bparent[
                                                                             :-len(sentence.word_idx[bparent])] \
                                  + child[:-len(sentence.word_idx[child])] + achild[
-                                                                            :-len(sentence.word_idx[achild])]: num})
+                                                                            :-len(sentence.word_idx[achild])]+ "c9" : num})
                             num += 1
                     except:
                         pass
@@ -449,12 +459,12 @@ class CFeatures:
                             if parent[:-len(sentence.word_idx[parent])] + aparent[:-len(sentence.word_idx[aparent])] \
                                     + child[:-len(sentence.word_idx[child])] + achild[
                                                                                :-len(sentence.word_idx[
-                                                                                         achild])] not in dic:
+                                                                                         achild])] + "c10" not in dic:
                                 dic.update(
                                     {parent[:-len(sentence.word_idx[parent])] + aparent[
                                                                                 :-len(sentence.word_idx[aparent])] \
                                      + child[:-len(sentence.word_idx[child])] + achild[
-                                                                                :-len(sentence.word_idx[achild])]: num})
+                                                                                :-len(sentence.word_idx[achild])]+ "c10" : num})
                                 num += 1
                         except:
                             pass
@@ -469,8 +479,8 @@ class CFeatures:
                 for child in children:
                     parent_idx = int(sentence.word_idx[parent])
                     child_idx = int(sentence.word_idx[child])
-                    if abs(parent_idx - child_idx) not in dic:
-                        dic.update({abs(parent_idx - child_idx): num})
+                    if str(abs(parent_idx - child_idx)) + "c11" not in dic:
+                        dic.update({str(abs(parent_idx - child_idx)) + "c11" : num})
                         num += 1
         return dic, num
 
@@ -496,9 +506,9 @@ class CFeatures:
                     posp = sentence.word_pos[parent]
                     posc = sentence.word_pos[child]
                     if parent[:-len(sentence.word_idx[parent])] + posp +\
-                            child[:-len(sentence.word_idx[child])] + posc not in dic:
+                            child[:-len(sentence.word_idx[child])] + posc + "c13" not in dic:
                         dic.update({parent[:-len(sentence.word_idx[parent])] + posp +
-                                    child[:-len(sentence.word_idx[child])] + posc: num})
+                                    child[:-len(sentence.word_idx[child])] + posc + "c13" : num})
                         num += 1
         return dic, num
 
@@ -511,9 +521,9 @@ class CFeatures:
                 for child in children:
                     posc = sentence.word_pos[child]
                     if parent[:-len(sentence.word_idx[parent])] + \
-                            child[:-len(sentence.word_idx[child])] + posc not in dic:
+                            child[:-len(sentence.word_idx[child])] + posc+ "c14"  not in dic:
                         dic.update({parent[:-len(sentence.word_idx[parent])] +
-                                    child[:-len(sentence.word_idx[child])] + posc: num})
+                                    child[:-len(sentence.word_idx[child])] + posc + "c14" : num})
                         num += 1
         return dic, num
 
@@ -526,9 +536,9 @@ class CFeatures:
                 for child in children:
                     posp = sentence.word_pos[parent]
                     if parent[:-len(sentence.word_idx[parent])] + posp + \
-                            child[:-len(sentence.word_idx[child])] not in dic:
+                            child[:-len(sentence.word_idx[child])] + "c15"  not in dic:
                         dic.update({parent[:-len(sentence.word_idx[parent])] + posp +
-                                    child[:-len(sentence.word_idx[child])]: num})
+                                    child[:-len(sentence.word_idx[child])] + "c15" : num})
                         num += 1
         return dic, num
 
@@ -540,9 +550,9 @@ class CFeatures:
             for parent, children in sentence.word_children.items():
                 for child in children:
                     if parent[:-len(sentence.word_idx[parent])] + \
-                            child[:-len(sentence.word_idx[child])] not in dic:
+                            child[:-len(sentence.word_idx[child])] + "c16"  not in dic:
                         dic.update({parent[:-len(sentence.word_idx[parent])] +
-                                    child[:-len(sentence.word_idx[child])]: num})
+                                    child[:-len(sentence.word_idx[child])] + "c17" : num})
                         num += 1
         return dic, num
 
@@ -558,8 +568,8 @@ class CFeatures:
                             posp = sentence.word_pos[parent]
                             posc = sentence.word_pos[child]
                             posg = sentence.word_pos[grandson]
-                            if posp + posc + posg not in dic:
-                                dic.update({posp + posc + posg: num})
+                            if posp + posc + posg + "c17" not in dic:
+                                dic.update({posp + posc + posg + "c17" : num})
                                 num += 1
         return dic, num
 
@@ -575,8 +585,8 @@ class CFeatures:
                             son = child[:-len(sentence.word_idx[child])]
                             pap = parent[:-len(sentence.word_idx[parent])]
                             gran = grandson[:-len(sentence.word_idx[grandson])]
-                            if pap + son + gran not in dic:
-                                dic.update({pap + son + gran: num})
+                            if pap + son + gran + "c18" not in dic:
+                                dic.update({pap + son + gran + "c18" : num})
                                 num += 1
         return dic, num
 
@@ -627,55 +637,51 @@ class CFeatures:
                 posp = word_pos[parent]
                 try:
                     #f1: parent +posp
-                    index_vec[self.f_dict[parent[:-len(word_idx[parent])] + posp]] += 1
+                    index_vec[self.f_dict[parent[:-len(word_idx[parent])] + posp + "f1"]] += 1
                 except:
                     pass
                 try:
                     #f3: posp
-                    index_vec[self.f_dict[posp]] += 1
+                    index_vec[self.f_dict[posp+ "f3"]] += 1
                 except:
                     pass
                 try:
                     #f2: parent
-                    index_vec[self.f_dict[parent[:-len(word_idx[parent])]]] += 1
+                    index_vec[self.f_dict[parent[:-len(word_idx[parent])]+ "f2"]] += 1
                 except:
                     pass
                 try:
                     #f5 child
-                    index_vec[self.f_dict[child[:-len(word_idx[child])]]] += 1
+                    index_vec[self.f_dict[child[:-len(word_idx[child])]+ "f5"]] += 1
                 except:
                     pass
                 posc = word_pos[child]
                 try:
                     #f4: child +posc
-                    index_vec[self.f_dict[child[:-len(word_idx[child])] + posc]] += 1
+                    index_vec[self.f_dict[child[:-len(word_idx[child])] + posc]+ "f4"] += 1
                 except:
                     pass
                 try:
                     #f6: posc
-                    index_vec[self.f_dict[posc]] += 1
+                    index_vec[self.f_dict[posc+ "f6"]] += 1
                 except:
                     pass
                 try:
                     #f8: posp + posc + child
-                    index_vec[self.f_dict[posp + posc + child[:-len(word_idx[child])]]] += 1
+                    index_vec[self.f_dict[posp + posc + child[:-len(word_idx[child])]+ "f8"]] += 1
                 except:
                     pass
                 try:
                     #f10: posp + posc + parent
-                    index_vec[self.f_dict[posp + posc+ parent[:-len(word_idx[parent])]]] += 1
+                    index_vec[self.f_dict[posp + posc+ parent[:-len(word_idx[parent])]]+ "f10"] += 1
                 except:
                     pass
                 try:
                     #f13: posp + posc
-                    index_vec[self.f_dict[posp + posc]] += 1
+                    index_vec[self.f_dict[posp + posc+ "f13"]] += 1
                 except:
                     pass
-                try:
-                    #f13: posp + posc
-                    index_vec[self.f_dict[posp + posc]] += 1
-                except:
-                    pass
+
 
                 if mode == "C":
                     posbp_idx = int(word_idx[parent]) - 1
@@ -697,25 +703,25 @@ class CFeatures:
 
                     try:
                         # fc1: posp + posbp + posc + posbc
-                        index_vec[self.f_dict[posp + posbp + posc + posbc]] += 1
+                        index_vec[self.f_dict[posp + posbp + posc + posbc + "c1"]] += 1
                     except:
                         pass
 
                     try:
                         # fc2: posp + posap + posc + posbc
-                        index_vec[self.f_dict[posp + posap + posc + posbc]] += 1
+                        index_vec[self.f_dict[posp + posap + posc + posbc+ "c2"]] += 1
                     except:
                         pass
 
                     try:
                         # fc3: posp + posbp + posc + posac
-                        index_vec[self.f_dict[posp + posbp + posc + posac]] += 1
+                        index_vec[self.f_dict[posp + posbp + posc + posac+ "c3"]] += 1
                     except:
                         pass
 
                     try:
                         # fc4: posp + posap + posc + posac
-                        index_vec[self.f_dict[posp + posap + posc + posac]] += 1
+                        index_vec[self.f_dict[posp + posap + posc + posac+ "c4"]] += 1
                     except:
                         pass
 
@@ -726,46 +732,46 @@ class CFeatures:
                         posm = word_pos[middle]
                         try:
                             # fc5: posp + posm + posc
-                            index_vec[self.f_dict[posp + posm + posc]] += 1
+                            index_vec[self.f_dict[posp + posm + posc+ "c5"]] += 1
                         except:
                             pass
                         try:
                             # fc6: parent + middle + child
                             index_vec[self.f_dict[parent[:-len(word_idx[parent])]+
                                                   middle[:-len(word_idx[middle])] +
-                                                  child[:-len(word_idx[child])]]] += 1
+                                                  child[:-len(word_idx[child])]+ "c6"]] += 1
                         except:
                             pass
 
 
                     try:
                         # fc7: parent + bparent + child + bchild
-                        index_vec[self.f_dict[parent + bparent + child + bchild]] += 1
+                        index_vec[self.f_dict[parent + bparent + child + bchild+ "c7"]] += 1
                     except:
                         pass
 
                     try:
                         # fc8: parent + aparent + child + bchild
-                        index_vec[self.f_dict[parent + aparent + child + bchild]] += 1
+                        index_vec[self.f_dict[parent + aparent + child + bchild+ "c8"]] += 1
                     except:
                         pass
 
                     try:
                         # fc9: parent + bparent + child + achild
-                        index_vec[self.f_dict[parent + bparent + child + achild]] += 1
+                        index_vec[self.f_dict[parent + bparent + child + achild+ "c9"]] += 1
                     except:
                         pass
 
                     try:
                         # fc10: parent + aparent + child + achild
-                        index_vec[self.f_dict[parent + aparent + child + achild]] += 1
+                        index_vec[self.f_dict[parent + aparent + child + achild+ "c10"]] += 1
                     except:
                         pass
 
                     distance = (int(word_idx[parent]) - int(word_idx[child]))
                     try:
                         # fc11: distance
-                        index_vec[self.f_dict[abs(distance)]] += 1
+                        index_vec[self.f_dict[str(abs(distance))+ "c11"]] += 1
                     except:
                         pass
 
@@ -780,28 +786,28 @@ class CFeatures:
                     try:
                         # fc13: parent + posp + child + posc
                         index_vec[self.f_dict[parent[:-len(word_idx[parent])] + posp +
-                                              child[:-len(word_idx[child])] + posc]] += 1
+                                              child[:-len(word_idx[child])] + posc]+ "c13"] += 1
                     except:
                         pass
 
                     try:
                         # fc14: parent  + child + posc
                         index_vec[self.f_dict[parent[:-len(word_idx[parent])] +
-                                              child[:-len(word_idx[child])] + posc]] += 1
+                                              child[:-len(word_idx[child])] + posc+ "c14"]] += 1
                     except:
                         pass
 
                     try:
                         # fc15: parent + posp + child
                         index_vec[self.f_dict[parent[:-len(word_idx[parent])] + posp +
-                                              child[:-len(word_idx[child])]]] += 1
+                                              child[:-len(word_idx[child])]]+ "c15"] += 1
                     except:
                         pass
 
                     try:
                         # fc16: parent + child
                         index_vec[self.f_dict[parent[:-len(word_idx[parent])] +
-                                              child[:-len(word_idx[child])]]] += 1
+                                              child[:-len(word_idx[child])]+ "c16"]] += 1
                     except:
                         pass
 
@@ -811,7 +817,7 @@ class CFeatures:
                             posg = word_pos[grandson]
                             try:
                                 # fc17: posg + posp + posc
-                                index_vec[self.f_dict[posp + posc + posg]] += 1
+                                index_vec[self.f_dict[posp + posc + posg+ "c17"]] += 1
                             except:
                                 pass
 
@@ -819,7 +825,7 @@ class CFeatures:
                                 # fc18: parent + child + grandson
                                 index_vec[self.f_dict[parent[:-len(word_idx[parent])] +
                                                       child[:-len(word_idx[child])] +
-                                                      grandson[:-len(word_idx[grandson])]]] += 1
+                                                      grandson[:-len(word_idx[grandson])]+ "c18"]] += 1
                             except:
                                 pass
                     except:

@@ -6,7 +6,7 @@ TEST = "test.labeled"
 MODE = "C" #complex
 # MODE = "B" #basic
 
-ITER = 1
+ITER = 20
 THRESHOLD = 0
 
 # W = "c1w_" + str(ITER)  + "_RAND"

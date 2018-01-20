@@ -2,31 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d75c6b0-cac1-41dc-9e91-c1c54a87349e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ComplexFeatures.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/results/test with w_10_RAND_th_0" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/results/test with w_1_RAND_th_0" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/results/test with w_20_RAND_th_0" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/results/test with w_2_RAND_th_0" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/weights_vec/w30_RAND" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/weights_vec/w50_RAND" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/weights_vec/w50_Rand" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/weights_vec/w_10_RAND" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/weights_vec/w_1_RAND" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/weights_vec/w_20_RAND" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/weights_vec/w_2_RAND" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/weights_vec/w_30_RAND" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Features.py" afterPath="$PROJECT_DIR$/BasicFeatures.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/WET2.iml" afterPath="$PROJECT_DIR$/.idea/WET2.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Inference.py" afterPath="$PROJECT_DIR$/Inference.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Perceptron.py" afterPath="$PROJECT_DIR$/Perceptron.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sentence.py" afterPath="$PROJECT_DIR$/Sentence.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chu_liu.py" afterPath="$PROJECT_DIR$/chu_liu.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dum" afterPath="$PROJECT_DIR$/dum" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/weights_vec/comp_w_1" afterPath="$PROJECT_DIR$/weights_vec/comp_w_1" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ComplexFeatures.py" afterPath="$PROJECT_DIR$/ComplexFeatures.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/funcs.py" afterPath="$PROJECT_DIR$/funcs.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stats.py" afterPath="$PROJECT_DIR$/stats.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/results/test with comp_w_1_th_0" afterPath="$PROJECT_DIR$/results/test with comp_w_1_th_0" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils.py" afterPath="$PROJECT_DIR$/utils.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -63,8 +42,8 @@
       <file leaf-file-name="ComplexFeatures.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ComplexFeatures.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3870">
-              <caret line="215" column="28" lean-forward="false" selection-start-line="214" selection-start-column="27" selection-end-line="215" selection-end-column="28" />
+            <state relative-caret-position="3528">
+              <caret line="217" column="32" lean-forward="false" selection-start-line="214" selection-start-column="31" selection-end-line="217" selection-end-column="32" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -75,8 +54,8 @@
       <file leaf-file-name="funcs.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/funcs.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="533">
-              <caret line="202" column="0" lean-forward="true" selection-start-line="202" selection-start-column="0" selection-end-line="202" selection-end-column="0" />
+            <state relative-caret-position="540">
+              <caret line="75" column="15" lean-forward="false" selection-start-line="60" selection-start-column="12" selection-end-line="75" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -86,7 +65,7 @@
         <entry file="file://$PROJECT_DIR$/utils.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="144">
-              <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+              <caret line="8" column="9" lean-forward="false" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -206,9 +185,9 @@
         <option value="$PROJECT_DIR$/Perceptron.py" />
         <option value="$PROJECT_DIR$/BasicFeatures.py" />
         <option value="$PROJECT_DIR$/blabla.py" />
-        <option value="$PROJECT_DIR$/utils.py" />
-        <option value="$PROJECT_DIR$/funcs.py" />
         <option value="$PROJECT_DIR$/ComplexFeatures.py" />
+        <option value="$PROJECT_DIR$/funcs.py" />
+        <option value="$PROJECT_DIR$/utils.py" />
       </list>
     </option>
   </component>
@@ -443,14 +422,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Perceptron.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="9" column="13" lean-forward="true" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Parser.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -675,25 +646,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Perceptron.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="23" lean-forward="false" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test.labeled">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/results/test with comp_w_1_th_0">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -709,26 +662,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dum">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Sentence.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="191">
           <caret line="18" column="44" lean-forward="false" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -749,6 +686,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/results/test with comp_w_1_th_0">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/results/test with comp_w_5_th_0">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dum">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Perceptron.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="18" column="23" lean-forward="false" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Inference.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="267">
@@ -757,18 +728,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="9" lean-forward="false" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/funcs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="533">
-          <caret line="202" column="0" lean-forward="true" selection-start-line="202" selection-start-column="0" selection-end-line="202" selection-end-column="0" />
+        <state relative-caret-position="540">
+          <caret line="75" column="15" lean-forward="false" selection-start-line="60" selection-start-column="12" selection-end-line="75" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ComplexFeatures.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3870">
-          <caret line="215" column="28" lean-forward="false" selection-start-line="214" selection-start-column="27" selection-end-line="215" selection-end-column="28" />
+        <state relative-caret-position="3528">
+          <caret line="217" column="32" lean-forward="false" selection-start-line="214" selection-start-column="31" selection-end-line="217" selection-end-column="32" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
