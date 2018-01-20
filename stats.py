@@ -1,4 +1,4 @@
-from Features import *
+from BasicFeatures import *
 from Parser import *
 from Perceptron import *
 from time import time

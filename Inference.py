@@ -5,10 +5,10 @@ import re
 
 class Inference:
 
-    def __init__(self, w, sentences, feats):
+    def __init__(self, w, sentences, feats,mode):
         self.sentences = sentences
         for sentence in sentences:
-            weights = weights_calc(w, sentence, feats)
+            weights = weights_calc(w, sentence, feats,mode)
             # print(weights)
             all_successors = sentence.sentence_fc()
             graph = Digraph(all_successors, lambda u, v: weights[u][v])
@@ -21,13 +21,11 @@ class Inference:
         with open(filename, 'w') as file:
             for sentence in self.sentences:
                 for idx in sentence.idx_word:
-                    if idx != '*':
+                    if idx != '0':
                         # print(sentence.word_children_inf)
                         for parent in sentence.word_children_inf:
                             if sentence.idx_word[idx] in sentence.word_children_inf[parent]:
                                 paridx = sentence.word_idx[parent]
-                                if paridx == '*':
-                                    paridx = '0'
                                 file.write(idx + "	" + sentence.idx_word[idx][:-len(idx)] + "	_	" + # index and word
                                        sentence.word_pos[sentence.idx_word[idx]] + "	_	_	" + #POS
                                        paridx + "	_	_	_\n") #token head

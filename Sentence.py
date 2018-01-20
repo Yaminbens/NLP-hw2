@@ -16,10 +16,10 @@ class Sentence:
             self.word_idx.update({word[1]+word[0]: word[0]})
             self.word_pos.update({word[1]+word[0]:word[2]})
             if word[3] == '0':
-                self.word_children.update({"ROOT*": [word[1]+word[0]]})
-        self.idx_word.update({'*': "ROOT*"})
-        self.word_idx.update({"ROOT*": '*'})
-        self.word_pos.update({"ROOT*": "ROOT"})
+                self.word_children.update({"ROOT0": [word[1]+word[0]]})
+        self.idx_word.update({'0': "ROOT0"})
+        self.word_idx.update({"ROOT0": '0'})
+        self.word_pos.update({"ROOT0": "ROOT"})
 
         #length of sentence
         self.slen = len(self.idx_word)
@@ -45,7 +45,7 @@ class Sentence:
         for word in self.word_idx:
             parents.update({word: []})
             for child in self.word_idx:
-                if child != 'ROOT*':
+                if child != 'ROOT0':
                     parents[word].append(child)
 
         return parents

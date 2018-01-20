@@ -2,30 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1d75c6b0-cac1-41dc-9e91-c1c54a87349e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Inference.py" afterPath="$PROJECT_DIR$/Inference.py" />
-      <change beforePath="$PROJECT_DIR$/Perceptron.py" afterPath="$PROJECT_DIR$/Perceptron.py" />
-      <change beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change beforePath="$PROJECT_DIR$/results/test with w1_RAND" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/results/test with w2_RAND" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/results/test with w30_RAND" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/results/test with w_20_RAND_th_0" afterPath="$PROJECT_DIR$/results/test with w_20_RAND_th_0" />
-      <change beforePath="$PROJECT_DIR$/results/test with w_2_RAND_th_0" afterPath="$PROJECT_DIR$/results/test with w_2_RAND_th_0" />
-      <change beforePath="$PROJECT_DIR$/results/test with w_30_RAND_th_3" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/results/train with w10" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/results/train with w20" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/results/train with w20_Rand" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/results/train with w30_RAND" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/utils.py" afterPath="$PROJECT_DIR$/utils.py" />
-      <change beforePath="$PROJECT_DIR$/weights_vec/w1" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/weights_vec/w10" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/weights_vec/w10_Rand" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/weights_vec/w1_RAND" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/weights_vec/w20" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/weights_vec/w20_Rand" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/weights_vec/w2_RAND" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/weights_vec/w_20_RAND" afterPath="$PROJECT_DIR$/weights_vec/w_20_RAND" />
-      <change beforePath="$PROJECT_DIR$/weights_vec/w_2_RAND" afterPath="$PROJECT_DIR$/weights_vec/w_2_RAND" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ComplexFeatures.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/results/test with w_10_RAND_th_0" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/results/test with w_1_RAND_th_0" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/results/test with w_20_RAND_th_0" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/results/test with w_2_RAND_th_0" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/weights_vec/w30_RAND" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/weights_vec/w50_RAND" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/weights_vec/w50_Rand" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/weights_vec/w_10_RAND" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/weights_vec/w_1_RAND" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/weights_vec/w_20_RAND" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/weights_vec/w_2_RAND" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/weights_vec/w_30_RAND" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Features.py" afterPath="$PROJECT_DIR$/BasicFeatures.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/WET2.iml" afterPath="$PROJECT_DIR$/.idea/WET2.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Inference.py" afterPath="$PROJECT_DIR$/Inference.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Perceptron.py" afterPath="$PROJECT_DIR$/Perceptron.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Sentence.py" afterPath="$PROJECT_DIR$/Sentence.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chu_liu.py" afterPath="$PROJECT_DIR$/chu_liu.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dum" afterPath="$PROJECT_DIR$/dum" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/funcs.py" afterPath="$PROJECT_DIR$/funcs.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stats.py" afterPath="$PROJECT_DIR$/stats.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils.py" afterPath="$PROJECT_DIR$/utils.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -39,19 +41,33 @@
       <file leaf-file-name="Perceptron.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Perceptron.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="14" column="51" lean-forward="false" selection-start-line="14" selection-start-column="51" selection-end-line="14" selection-end-column="51" />
+            <state relative-caret-position="324">
+              <caret line="18" column="23" lean-forward="false" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dum" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dum">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/main.py">
+      <file leaf-file-name="ComplexFeatures.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ComplexFeatures.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="13" column="4" lean-forward="false" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
-              <folding />
+            <state relative-caret-position="3870">
+              <caret line="215" column="28" lean-forward="false" selection-start-line="214" selection-start-column="27" selection-end-line="215" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -59,18 +75,8 @@
       <file leaf-file-name="funcs.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/funcs.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="64" column="49" lean-forward="false" selection-start-line="64" selection-start-column="49" selection-end-line="64" selection-end-column="49" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Sentence.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Sentence.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-75">
-              <caret line="13" column="39" lean-forward="false" selection-start-line="13" selection-start-column="39" selection-end-line="13" selection-end-column="39" />
+            <state relative-caret-position="533">
+              <caret line="202" column="0" lean-forward="true" selection-start-line="202" selection-start-column="0" selection-end-line="202" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -79,18 +85,8 @@
       <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="5" column="9" lean-forward="false" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test with w_10_RAND_th_0" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/results/test with w_10_RAND_th_0">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="144">
+              <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -99,30 +95,28 @@
       <file leaf-file-name="Inference.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Inference.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="29" column="47" lean-forward="false" selection-start-line="29" selection-start-column="47" selection-end-line="29" selection-end-column="47" />
+            <state relative-caret-position="267">
+              <caret line="27" column="66" lean-forward="false" selection-start-line="27" selection-start-column="66" selection-end-line="27" selection-end-column="66" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test.py">
+      <file leaf-file-name="infer.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/infer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="50">
-              <caret line="4" column="37" lean-forward="false" selection-start-line="4" selection-start-column="37" selection-end-line="4" selection-end-column="37" />
-              <folding>
-                <element signature="e#0#21#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="126">
+              <caret line="10" column="23" lean-forward="true" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chu_liu.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chu_liu.py">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="16" column="11" lean-forward="false" selection-start-line="16" selection-start-column="11" selection-end-line="24" selection-end-column="0" />
+            <state relative-caret-position="72">
+              <caret line="4" column="20" lean-forward="false" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -139,18 +133,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>6</find>
-      <find>: 6</find>
-      <find>: 4</find>
-      <find>: 8</find>
-      <find>: 10</find>
-      <find>: 15</find>
-      <find>: 20</find>
-      <find>greedy</find>
-      <find>f_xy</find>
-      <find>get_score</find>
-      <find>print</find>
-      <find>parent</find>
       <find>child</find>
       <find>f_x</find>
       <find>word_id</find>
@@ -166,9 +148,21 @@
       <find>word_parent</find>
       <find>weight_calc</find>
       <find>ROOT</find>
-      <find>0</find>
       <find>mst</find>
       <find>merge</find>
+      <find>w_f</find>
+      <find>num of feats</find>
+      <find>u</find>
+      <find>v</find>
+      <find>f_uv</find>
+      <find>f_uv_basic</find>
+      <find>weights_calc</find>
+      <find>*</find>
+      <find>ROOT0</find>
+      <find>R</find>
+      <find>0</find>
+      <find>root</find>
+      <find>f_xy</find>
     </findStrings>
     <replaceStrings>
       <replace>parent[:-sentence.word_id[parent]]</replace>
@@ -183,6 +177,8 @@
       <replace>:-len(u)</replace>
       <replace>:-len(v)</replace>
       <replace>len(word_idx[parent][0])</replace>
+      <replace>parent</replace>
+      <replace>child</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -191,25 +187,28 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/dum" />
         <option value="$PROJECT_DIR$/Dict.py" />
         <option value="$PROJECT_DIR$/Model.py" />
         <option value="$PROJECT_DIR$/Pקרבקפארםמ.py" />
         <option value="$PROJECT_DIR$/Perceotron.py" />
         <option value="$PROJECT_DIR$/eval.py" />
         <option value="$PROJECT_DIR$/Parser.py" />
-        <option value="$PROJECT_DIR$/funcs.py" />
         <option value="$PROJECT_DIR$/infer.py" />
         <option value="$PROJECT_DIR$/results/stats.py" />
         <option value="$PROJECT_DIR$/stats.py" />
-        <option value="$PROJECT_DIR$/Features.py" />
         <option value="$PROJECT_DIR$/chu_liu.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/Sentence.py" />
-        <option value="$PROJECT_DIR$/Perceptron.py" />
-        <option value="$PROJECT_DIR$/Inference.py" />
-        <option value="$PROJECT_DIR$/utils.py" />
+        <option value="$PROJECT_DIR$/Features.py" />
+        <option value="$PROJECT_DIR$/dum" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/Sentence.py" />
+        <option value="$PROJECT_DIR$/Inference.py" />
+        <option value="$PROJECT_DIR$/Perceptron.py" />
+        <option value="$PROJECT_DIR$/BasicFeatures.py" />
+        <option value="$PROJECT_DIR$/blabla.py" />
+        <option value="$PROJECT_DIR$/utils.py" />
+        <option value="$PROJECT_DIR$/funcs.py" />
+        <option value="$PROJECT_DIR$/ComplexFeatures.py" />
       </list>
     </option>
   </component>
@@ -237,21 +236,22 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="NLP-hw2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NLP-hw2" type="462c0819:PsiDirectoryNode" />
+              <item name="WET2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WET2" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NLP-hw2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NLP-hw2" type="462c0819:PsiDirectoryNode" />
+              <item name="WET2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WET2" type="462c0819:PsiDirectoryNode" />
               <item name="results" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="NLP-hw2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="NLP-hw2" type="462c0819:PsiDirectoryNode" />
+              <item name="WET2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WET2" type="462c0819:PsiDirectoryNode" />
               <item name="weights_vec" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -259,11 +259,10 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="/usr/bin/python3.6" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -284,7 +283,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.infer">
+  <component name="RunManager" selected="Python.main">
     <configuration name="eval" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -301,7 +300,6 @@
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="infer" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -319,7 +317,6 @@
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -337,7 +334,6 @@
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="stats" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -355,7 +351,6 @@
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -373,7 +368,6 @@
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.main" />
@@ -384,8 +378,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.infer" />
-        <item index="1" class="java.lang.String" itemvalue="Python.main" />
+        <item index="0" class="java.lang.String" itemvalue="Python.main" />
+        <item index="1" class="java.lang.String" itemvalue="Python.infer" />
         <item index="2" class="java.lang.String" itemvalue="Python.test" />
         <item index="3" class="java.lang.String" itemvalue="Python.stats" />
         <item index="4" class="java.lang.String" itemvalue="Python.eval" />
@@ -409,26 +403,27 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
+    <frame x="292" y="24" width="1857" height="1092" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24905661" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29587156" sideWeight="0.0921875" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32568806" sideWeight="0.9078125" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3210634" sideWeight="0.9078125" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -448,36 +443,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Features.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4075">
-          <caret line="164" column="28" lean-forward="false" selection-start-line="164" selection-start-column="28" selection-end-line="164" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dum">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1475">
-          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chu_liu.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1000">
-          <caret line="40" column="12" lean-forward="true" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Perceptron.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
@@ -493,7 +458,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Features.py">
+    <entry file="file://$PROJECT_DIR$/BasicFeatures.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="14" column="20" lean-forward="true" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
@@ -605,7 +570,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Features.py">
+    <entry file="file://$PROJECT_DIR$/BasicFeatures.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="15" column="22" lean-forward="false" selection-start-line="13" selection-start-column="17" selection-end-line="15" selection-end-column="22" />
@@ -613,21 +578,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/eval.py" />
-    <entry file="file://$PROJECT_DIR$/dum">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1062">
-          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/results/train with w50_Rand" />
-    <entry file="file://$PROJECT_DIR$/train.labeled">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1696704">
-          <caret line="49890" column="7" lean-forward="false" selection-start-line="49890" selection-start-column="4" selection-end-line="49890" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/results/train with w10">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1000">
@@ -662,58 +613,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/results/test with w30_RAND" />
     <entry file="file://$PROJECT_DIR$/stats.py" />
-    <entry file="file://$PROJECT_DIR$/Features.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1556">
-          <caret line="203" column="8" lean-forward="false" selection-start-line="203" selection-start-column="8" selection-end-line="203" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.labeled">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/infer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/results/test with w_20_RAND_th_0">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chu_liu.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
+        <state relative-caret-position="288">
           <caret line="16" column="11" lean-forward="false" selection-start-line="16" selection-start-column="11" selection-end-line="24" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="4" column="37" lean-forward="false" selection-start-line="4" selection-start-column="37" selection-end-line="4" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Sentence.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-75">
-          <caret line="13" column="39" lean-forward="false" selection-start-line="13" selection-start-column="39" selection-end-line="13" selection-end-column="39" />
           <folding />
         </state>
       </provider>
@@ -722,15 +632,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/funcs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="64" column="49" lean-forward="false" selection-start-line="64" selection-start-column="49" selection-end-line="64" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -738,11 +639,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-5000">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/results/test with w_10_RAND_th_0" />
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/results/test with w_10_RAND_th_0">
+    <entry file="file://$PROJECT_DIR$/train.labeled">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="898020">
+          <caret line="49890" column="7" lean-forward="false" selection-start-line="49890" selection-start-column="4" selection-end-line="49890" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/results/test with w_5_RAND_th_0">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -750,35 +667,111 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils.py">
+    <entry file="file://$PROJECT_DIR$/blabla.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="5" column="9" lean-forward="false" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Inference.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="29" column="47" lean-forward="false" selection-start-line="29" selection-start-column="47" selection-end-line="29" selection-end-column="47" />
+        <state relative-caret-position="0">
+          <caret line="0" column="4" lean-forward="false" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Perceptron.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="14" column="51" lean-forward="false" selection-start-line="14" selection-start-column="51" selection-end-line="14" selection-end-column="51" />
+        <state relative-caret-position="324">
+          <caret line="18" column="23" lean-forward="false" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.labeled">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/results/test with comp_w_1_th_0">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BasicFeatures.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="166" column="4" lean-forward="true" selection-start-line="166" selection-start-column="4" selection-end-line="186" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dum">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Sentence.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="18" column="44" lean-forward="false" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="13" column="4" lean-forward="false" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+        <state relative-caret-position="72">
+          <caret line="4" column="20" lean-forward="false" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/infer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="10" column="23" lean-forward="true" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Inference.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="27" column="66" lean-forward="false" selection-start-line="27" selection-start-column="66" selection-end-line="27" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/funcs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="533">
+          <caret line="202" column="0" lean-forward="true" selection-start-line="202" selection-start-column="0" selection-end-line="202" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ComplexFeatures.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3870">
+          <caret line="215" column="28" lean-forward="false" selection-start-line="214" selection-start-column="27" selection-end-line="215" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
