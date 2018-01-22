@@ -1037,5 +1037,4 @@ class CFeatures:
                             except:
                                 pass
 
-
         return index_vec

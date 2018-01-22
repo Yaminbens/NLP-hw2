@@ -231,7 +231,7 @@ def f_uv(feats, sentence, u, v, mode):
             pass
 
         try:
-            for child2 in sentence.word_idx:
+            for child2 in sentence.word_idx[sentence.idx_word[u]]:
                 if v != sentence.word_idx[child2]:
                     posc2 = sentence.word_pos[child2]
 
@@ -275,7 +275,10 @@ def weights_calc(w, sentence, feats,mode):
             if child not in weights[parent]:
                 uidx = sentence.word_idx[parent]
                 vidx = sentence.word_idx[child]
-                weights[parent].update({child: w_f(w, f_uv(feats, sentence, uidx, vidx,mode))})
+                if uidx == vidx or vidx == 0:
+                    weights[parent].update({child: 0})
+                else:
+                    weights[parent].update({child: w_f(w, f_uv(feats, sentence, uidx, vidx,mode))})
 
     return weights
 
