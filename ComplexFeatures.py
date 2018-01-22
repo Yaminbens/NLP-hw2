@@ -1,10 +1,22 @@
 import numpy as np
 from copy import copy
 import utils
+import collections
+from main import  *
 
 class CFeatures:
 
     def __init__(self, sentences):
+
+        #preprocessing
+        self.wordcounts = collections.OrderedDict()
+        self.countwords(sentences)
+        # print(self.wordcounts)
+        self.filtered = []
+        self.filterwords()
+        print(self.filtered)
+
+
         idx = 0
         self.f1, idx = self.f_parent_posp(sentences,idx)
         self.f2, idx = self.f_parent(sentences,idx)
@@ -31,89 +43,84 @@ class CFeatures:
         self.fc14, idx = self.f_parent_child_posc(sentences, idx)      # basic 9
         self.fc15, idx = self.f_parent_posp_child(sentences, idx)      # basic 11
         self.fc16, idx = self.f_parent_child(sentences, idx)           # baisc 12
-        # self.fc17, idx = self.f_posg_posp_posc(sentences, idx)
-        # self.fc18, idx = self.f_grandpa_parent_child(sentences, idx)
-        # self.fc19, idx = self.f_posgg_posg_posp_posc(sentences, idx)
-        # self.fc20, idx = self.f_grandgrandpa_grandpa_parent_child(sentences, idx)
-
-
-        print("len:",len(self.fc1))
-        print("len:",len(self.fc2))
-
-        print("len:",len(self.fc3))
-        print("len:",len(self.fc4))
-        #
-        # # print(self.fc1)
-        # # print(self.fc2)
-        # # print("")
-        # print(self.fc3)
-        # print(self.fc4)
-
-
-
-
-        # print(len(self.f1))
-        # # print(len(self.f2))
-        # print(len(self.fc13))
-        # print(len(self.fc14))
-        # print(len(self.fc15))
-        # print(len(self.fc16))
-        # # print(len(self.f8))
-        # print(len(self.f10))
-        # print(len(self.f13))
+        self.fc17, idx = self.f_posg_posp_posc(sentences, idx)
+        self.fc18, idx = self.f_grandpa_parent_child(sentences, idx)
+        self.fc19, idx = self.f_posgg_posg_posp_posc(sentences, idx)
+        self.fc20, idx = self.f_grandgrandpa_grandpa_parent_child(sentences, idx)
+        self.fc21, idx = self.f_posp_posc1_posc2(sentences, idx)
+        self.fc22, idx = self.f_parent_posp_posc1_posc2(sentences, idx)
+        self.fc23, idx = self.f_posp_posc1_posc2_child(sentences, idx)
 
         self.f_len = idx #length of feature vector
-        print(self.f_len)
-        self.f_dict = {}
+        # print(self.f_len)
+        self.f_dict = collections.OrderedDict()
+        feat_list = []
         for d in (self.f1, self.f2, self.f3, self.f4, self.f5, self.f6, self.f8, self.f10, self.f13,
-                  self.fc1, self.fc2, self.fc3, self.fc4, self.fc5, self.fc6, self.fc7, self.fc8,
-                  self.fc9, self.fc10, self.fc11,self.fc12, self.fc13, self.fc14,
-                  self.fc15, self.fc16 ): #,self.fc17, self.fc18):
+                  self.fc1, self.fc2, self.fc3, self.fc4, self.fc5, self.fc6,
+                  self.fc7, self.fc8, self.fc9, self.fc10, self.fc11,self.fc12,
+                  self.fc13, self.fc14, self.fc15, self.fc16 ,
+                  self.fc17, self.fc18, self.fc19, self.fc20,
+                  self.fc21, self.fc22, self.fc23):
 
             self.f_dict.update(d)
+
+        # # print(self.f_dict)
+        # with open("aaa", 'w') as file:
+        #     for d in self.f_dict:
+        #         file.write(d+": "+str(self.f_dict[d])+"\n")
 
         # self.f_v_stats = self.stats(sentences, copy(self.f_dict))
         # print(self.f_v_stats)
         # self.refine(utils.THRESHOLD)
 
-    # def refine(self, threshold):
-    #     for feat in self.f_v_stats.keys():
-    #         if self.f_v_stats[feat] < threshold:
-    #             del self.f_dict[feat]
-    #     idx = 0
-    #     for feat in self.f_dict:
-    #         self.f_dict[feat] = idx
-    #         idx += 1
-    #     self.f_len = idx
+    def countwords(self, sentences):
+
+        for sentence in sentences:
+            for i,word in sentence.idx_word.items():
+                if word[:-len(sentence.word_idx[word])] not in self.wordcounts:
+                    self.wordcounts.update({word[:-len(sentence.word_idx[word])]:1})
+                else:
+                    self.wordcounts[word[:-len(sentence.word_idx[word])]] +=1
+
+    def filterwords(self):
+        for word,val in self.wordcounts.items():
+            if val >= utils.THRESHOLD :
+                self.filtered.append(word)
+
+
+
 
 
 
     #feature1: parent word + pos(parent)
     def f_parent_posp(self,sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent in sentence.word_children.keys():
-                pos = sentence.word_pos[parent]
-                if parent[:-len(sentence.word_idx[parent])]+pos + "f1" not in dic:
-                    dic.update({parent[:-len(sentence.word_idx[parent])]+pos + "f1":num})
-                    num += 1
+                if parent != "ROOT0":
+                    pos = sentence.word_pos[parent]
+                    if parent[:-len(sentence.word_idx[parent])] in self.filtered:
+                        if parent[:-len(sentence.word_idx[parent])]+pos + "f1" not in dic:
+                            dic.update({parent[:-len(sentence.word_idx[parent])]+pos + "f1":num})
+                            num += 1
         return dic, num
 
     #feature2: parent word
     def f_parent(self,sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent in sentence.word_children.keys():
-                if parent[:-len(sentence.word_idx[parent])] + "f2" not in dic:
-                    dic.update({parent[:-len(sentence.word_idx[parent])] + "f2":num})
-                    num += 1
+                if parent[:-len(sentence.word_idx[parent])] in self.filtered:
+                    if parent[:-len(sentence.word_idx[parent])] + "f2" not in dic:
+                        dic.update({parent[:-len(sentence.word_idx[parent])] + "f2":num})
+                        num += 1
         return dic, num
 
     # feature3: POS of parent word
     def f_posp(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent in sentence.word_children.keys():
@@ -126,32 +133,34 @@ class CFeatures:
 
     # feature4: child word + pos(parent)
     def f_child_posc(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent,children in sentence.word_children.items():
                 for child in children:
                     pos = sentence.word_pos[child]
-                    if child[:-len(sentence.word_idx[child])] + pos + "f4" not in dic:
-                        dic.update({child[:-len(sentence.word_idx[child])] + pos + "f4": num})
-                        num += 1
+                    if child[:-len(sentence.word_idx[child])] in self.filtered:
+                        if child[:-len(sentence.word_idx[child])] + pos + "f4" not in dic:
+                            dic.update({child[:-len(sentence.word_idx[child])] + pos + "f4": num})
+                            num += 1
         return dic, num
 
     # feature5: child word
     def f_child(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
                 for child in children:
-                    if child[:-len(sentence.word_idx[child])] + "f5" not in dic:
-                        dic.update({child[:-len(sentence.word_idx[child])] + "f5": num})
-                        num += 1
+                    if child[:-len(sentence.word_idx[child])] in self.filtered:
+                        if child[:-len(sentence.word_idx[child])] + "f5" not in dic:
+                            dic.update({child[:-len(sentence.word_idx[child])] + "f5": num})
+                            num += 1
         return dic, num
 
     # feature6: POS of child word
     def f_posc(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -164,35 +173,37 @@ class CFeatures:
 
     # feature8:  POS of parent + POS of child + child word
     def f_posp_posc_child(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
                 for child in children:
                     posp = sentence.word_pos[parent]
                     posc = sentence.word_pos[child]
-                    if posp+posc+child[:-len(sentence.word_idx[child])] + "f8" not in dic:
-                        dic.update({posp+posc+child[:-len(sentence.word_idx[child])] + "f8": num})
-                        num += 1
+                    if child[:-len(sentence.word_idx[child])] in self.filtered:
+                        if posp+posc+child[:-len(sentence.word_idx[child])] + "f8" not in dic:
+                            dic.update({posp+posc+child[:-len(sentence.word_idx[child])] + "f8": num})
+                            num += 1
         return dic, num
 
     # feature10:  POS of parent + POS of child + parent word
     def f_parent_posp_posc(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
                 for child in children:
                     posp = sentence.word_pos[parent]
                     posc = sentence.word_pos[child]
-                    if posp + posc + parent[:-len(sentence.word_idx[parent])] + "f10" not in dic:
-                        dic.update({posp + posc + parent[:-len(sentence.word_idx[parent])] + "f10": num})
+                    if parent[:-len(sentence.word_idx[parent])] in self.filtered:
+                        if posp + posc + parent[:-len(sentence.word_idx[parent])] + "f10" not in dic:
+                            dic.update({posp + posc + parent[:-len(sentence.word_idx[parent])] + "f10": num})
                         num += 1
         return dic, num
 
     # feature13: POS of parent + POS of child
     def f_posp_posc(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -206,7 +217,7 @@ class CFeatures:
 
     # feature c1: POS of parent + POS preceding of parent + POS of child + POS preceding of child
     def f_posp_posbp_posc_posbc(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -236,7 +247,7 @@ class CFeatures:
 
     # feature c2: POS of parent + POS following of parent + POS of child + POS preceding of child
     def f_posp_posap_posc_posbc(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -266,7 +277,7 @@ class CFeatures:
 
     # feature c3: POS of parent + POS preceding of parent + POS of child + POS following of child
     def f_posp_posbp_posc_posac(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -296,7 +307,7 @@ class CFeatures:
 
     # feature c4: POS of parent + POS following of parent + POS of child + POS following of child
     def f_posp_posap_posc_posac(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -325,7 +336,7 @@ class CFeatures:
 
     # feature c5: POS of parent + POS of middle word + POS of child
     def f_posp_posm_posc(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -344,7 +355,7 @@ class CFeatures:
 
     # feature c6: parent + middle word + child
     def f_parent_middle_child(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -354,17 +365,20 @@ class CFeatures:
                         end_idx = max(int(sentence.word_idx[parent]), int(sentence.word_idx[child]))
                         for idx in range(start_idx + 1, end_idx):
                             middle = sentence.idx_word[str(idx)]
-                            if parent[:-len(sentence.word_idx[parent])] + middle[:-len(sentence.word_idx[middle])] \
-                                    + child[:-len(sentence.word_idx[child])] + "c6"  not in dic:
-                                    dic.update({parent[:-len(sentence.word_idx[parent])] +
-                                                            middle[:-len(sentence.word_idx[middle])] +
-                                                            child[:-len(sentence.word_idx[child])] + "c6" : num})
-                                    num += 1
+                            if parent[:-len(sentence.word_idx[parent])] in self.filtered and\
+                                            middle[:-len(sentence.word_idx[middle])] in self.filtered and\
+                                            child[:-len(sentence.word_idx[child])] in self.filtered:
+                                if parent[:-len(sentence.word_idx[parent])] + middle[:-len(sentence.word_idx[middle])] \
+                                        + child[:-len(sentence.word_idx[child])] + "c6"  not in dic:
+                                        dic.update({parent[:-len(sentence.word_idx[parent])] +
+                                                                middle[:-len(sentence.word_idx[middle])] +
+                                                                child[:-len(sentence.word_idx[child])] + "c6" : num})
+                                        num += 1
         return dic, num
 
     # feature c7: parent + preceding of parent + child +preceding of child
     def f_parent_bparent_child_bchild(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -377,18 +391,22 @@ class CFeatures:
                         if bchild_idx > 0:
                             bchild = sentence.idx_word[str(bchild_idx)]
                         try:
-                            if parent[:-len(sentence.word_idx[parent])] + bparent[:-len(sentence.word_idx[bparent])] \
-                                    + child[:-len(sentence.word_idx[child])] + bchild[:-len(sentence.word_idx[bchild])] + "c7" not in dic:
-                                dic.update({parent[:-len(sentence.word_idx[parent])] + bparent[:-len(sentence.word_idx[bparent])] \
-                                    + child[:-len(sentence.word_idx[child])] + bchild[:-len(sentence.word_idx[bchild])] + "c7" : num})
-                                num += 1
+                            if parent[:-len(sentence.word_idx[parent])] in self.filtered and \
+                                            bparent[:-len(sentence.word_idx[bparent])]in self.filtered and \
+                                            child[:-len(sentence.word_idx[child])] in self.filtered and \
+                                            bchild[:-len(sentence.word_idx[bchild])]  in self.filtered:
+                                if parent[:-len(sentence.word_idx[parent])] + bparent[:-len(sentence.word_idx[bparent])] \
+                                        + child[:-len(sentence.word_idx[child])] + bchild[:-len(sentence.word_idx[bchild])] + "c7" not in dic:
+                                    dic.update({parent[:-len(sentence.word_idx[parent])] + bparent[:-len(sentence.word_idx[bparent])] \
+                                        + child[:-len(sentence.word_idx[child])] + bchild[:-len(sentence.word_idx[bchild])] + "c7" : num})
+                                    num += 1
                         except:
                             pass
         return dic, num
 
     # feature c8:  parent + following of parent + child + preceding of child
     def f_parent_aparent_child_bchild(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -401,21 +419,25 @@ class CFeatures:
                         if bchild_idx > 0:
                             bchild = sentence.idx_word[str(bchild_idx)]
                         try:
-                            if parent[:-len(sentence.word_idx[parent])] + aparent[:-len(sentence.word_idx[aparent])] \
-                                    + child[:-len(sentence.word_idx[child])] + bchild[
-                                                                               :-len(sentence.word_idx[bchild])] + "c8"  not in dic:
-                                dic.update(
-                                    {parent[:-len(sentence.word_idx[parent])] + aparent[:-len(sentence.word_idx[aparent])] \
-                                     + child[:-len(sentence.word_idx[child])] + bchild[
-                                                                                :-len(sentence.word_idx[bchild])] + "c8" : num})
-                                num += 1
+                            if parent[:-len(sentence.word_idx[parent])] in self.filtered and \
+                                            aparent[:-len(sentence.word_idx[aparent])] in self.filtered and \
+                                            child[:-len(sentence.word_idx[child])] in self.filtered and \
+                                            bchild[:-len(sentence.word_idx[bchild])] in self.filtered:
+                                if parent[:-len(sentence.word_idx[parent])] + aparent[:-len(sentence.word_idx[aparent])] \
+                                        + child[:-len(sentence.word_idx[child])] + bchild[
+                                                                                   :-len(sentence.word_idx[bchild])] + "c8"  not in dic:
+                                    dic.update(
+                                        {parent[:-len(sentence.word_idx[parent])] + aparent[:-len(sentence.word_idx[aparent])] \
+                                         + child[:-len(sentence.word_idx[child])] + bchild[
+                                                                                    :-len(sentence.word_idx[bchild])] + "c8" : num})
+                                    num += 1
                         except:
                             pass
         return dic, num
 
     # feature c9: parent + preceding of parent + child + following of child
     def f_parent_bparent_child_achild(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -427,23 +449,27 @@ class CFeatures:
                     if achild_idx < sentence.slen:
                         achild = sentence.idx_word[str(achild_idx)]
                     try:
-                        if parent[:-len(sentence.word_idx[parent])] + bparent[:-len(sentence.word_idx[bparent])] \
-                                + child[:-len(sentence.word_idx[child])] + achild[
-                                                                           :-len(sentence.word_idx[
-                                                                                     achild])] + "c9" not in dic:
-                            dic.update(
-                                {parent[:-len(sentence.word_idx[parent])] + bparent[
-                                                                            :-len(sentence.word_idx[bparent])] \
-                                 + child[:-len(sentence.word_idx[child])] + achild[
-                                                                            :-len(sentence.word_idx[achild])]+ "c9" : num})
-                            num += 1
+                        if parent[:-len(sentence.word_idx[parent])] in self.filtered and \
+                                        bparent[:-len(sentence.word_idx[bparent])] in self.filtered and \
+                                        child[:-len(sentence.word_idx[child])] in self.filtered and \
+                                        achild[:-len(sentence.word_idx[achild])] in self.filtered:
+                            if parent[:-len(sentence.word_idx[parent])] + bparent[:-len(sentence.word_idx[bparent])] \
+                                    + child[:-len(sentence.word_idx[child])] + achild[
+                                                                               :-len(sentence.word_idx[
+                                                                                         achild])] + "c9" not in dic:
+                                dic.update(
+                                    {parent[:-len(sentence.word_idx[parent])] + bparent[
+                                                                                :-len(sentence.word_idx[bparent])] \
+                                     + child[:-len(sentence.word_idx[child])] + achild[
+                                                                                :-len(sentence.word_idx[achild])]+ "c9" : num})
+                                num += 1
                     except:
                         pass
         return dic, num
 
     # feature c10:  parent + following of parent + child + following of child
     def f_parent_aparent_child_achild(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -456,23 +482,27 @@ class CFeatures:
                         if achild_idx < sentence.slen:
                             achild = sentence.idx_word[str(achild_idx)]
                         try:
-                            if parent[:-len(sentence.word_idx[parent])] + aparent[:-len(sentence.word_idx[aparent])] \
-                                    + child[:-len(sentence.word_idx[child])] + achild[
-                                                                               :-len(sentence.word_idx[
-                                                                                         achild])] + "c10" not in dic:
-                                dic.update(
-                                    {parent[:-len(sentence.word_idx[parent])] + aparent[
-                                                                                :-len(sentence.word_idx[aparent])] \
-                                     + child[:-len(sentence.word_idx[child])] + achild[
-                                                                                :-len(sentence.word_idx[achild])]+ "c10" : num})
-                                num += 1
+                            if parent[:-len(sentence.word_idx[parent])] in self.filtered and \
+                                            aparent[:-len(sentence.word_idx[aparent])] in self.filtered and \
+                                            child[:-len(sentence.word_idx[child])] in self.filtered and \
+                                            achild[:-len(sentence.word_idx[achild])] in self.filtered:
+                                if parent[:-len(sentence.word_idx[parent])] + aparent[:-len(sentence.word_idx[aparent])] \
+                                        + child[:-len(sentence.word_idx[child])] + achild[
+                                                                                   :-len(sentence.word_idx[
+                                                                                             achild])] + "c10" not in dic:
+                                    dic.update(
+                                        {parent[:-len(sentence.word_idx[parent])] + aparent[
+                                                                                    :-len(sentence.word_idx[aparent])] \
+                                         + child[:-len(sentence.word_idx[child])] + achild[
+                                                                                    :-len(sentence.word_idx[achild])]+ "c10" : num})
+                                    num += 1
                         except:
                             pass
         return dic, num
 
     # feature c11:  distance from parent to child
     def f_indices_distance(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -486,7 +516,7 @@ class CFeatures:
 
     # feature c12:  edge direction from parent to child
     def f_direction(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         dic.update({"RRRR": num})
         num += 1
@@ -498,67 +528,75 @@ class CFeatures:
 
     # feature13:  parent word + POS of parent + child word + POS of child
     def f_parent_posp_child_posc(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
                 for child in children:
                     posp = sentence.word_pos[parent]
                     posc = sentence.word_pos[child]
-                    if parent[:-len(sentence.word_idx[parent])] + posp +\
-                            child[:-len(sentence.word_idx[child])] + posc + "c13" not in dic:
-                        dic.update({parent[:-len(sentence.word_idx[parent])] + posp +
-                                    child[:-len(sentence.word_idx[child])] + posc + "c13" : num})
-                        num += 1
+                    if parent[:-len(sentence.word_idx[parent])] in self.filtered and \
+                                    child[:-len(sentence.word_idx[child])] in self.filtered:
+                        if parent[:-len(sentence.word_idx[parent])] + posp +\
+                                child[:-len(sentence.word_idx[child])] + posc + "c13" not in dic:
+                            dic.update({parent[:-len(sentence.word_idx[parent])] + posp +
+                                        child[:-len(sentence.word_idx[child])] + posc + "c13" : num})
+                            num += 1
         return dic, num
 
     # feature14:  parent word + child word + POS of child
     def f_parent_child_posc(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
                 for child in children:
                     posc = sentence.word_pos[child]
-                    if parent[:-len(sentence.word_idx[parent])] + \
-                            child[:-len(sentence.word_idx[child])] + posc+ "c14"  not in dic:
-                        dic.update({parent[:-len(sentence.word_idx[parent])] +
-                                    child[:-len(sentence.word_idx[child])] + posc + "c14" : num})
-                        num += 1
+                    if parent[:-len(sentence.word_idx[parent])] in self.filtered and \
+                                    child[:-len(sentence.word_idx[child])] in self.filtered:
+                        if parent[:-len(sentence.word_idx[parent])] + \
+                                child[:-len(sentence.word_idx[child])] + posc+ "c14"  not in dic:
+                            dic.update({parent[:-len(sentence.word_idx[parent])] +
+                                        child[:-len(sentence.word_idx[child])] + posc + "c14" : num})
+                            num += 1
         return dic, num
 
     # feature15:  parent word + POS of parent + child word
     def f_parent_posp_child(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
                 for child in children:
                     posp = sentence.word_pos[parent]
-                    if parent[:-len(sentence.word_idx[parent])] + posp + \
-                            child[:-len(sentence.word_idx[child])] + "c15"  not in dic:
-                        dic.update({parent[:-len(sentence.word_idx[parent])] + posp +
-                                    child[:-len(sentence.word_idx[child])] + "c15" : num})
-                        num += 1
+                    if parent[:-len(sentence.word_idx[parent])] in self.filtered and \
+                                    child[:-len(sentence.word_idx[child])] in self.filtered:
+                        if parent[:-len(sentence.word_idx[parent])] + posp + \
+                                child[:-len(sentence.word_idx[child])] + "c15"  not in dic:
+                            dic.update({parent[:-len(sentence.word_idx[parent])] + posp +
+                                        child[:-len(sentence.word_idx[child])] + "c15" : num})
+                            num += 1
         return dic, num
 
     # feature16:  parent word  + child word
     def f_parent_child(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
                 for child in children:
-                    if parent[:-len(sentence.word_idx[parent])] + \
-                            child[:-len(sentence.word_idx[child])] + "c16"  not in dic:
-                        dic.update({parent[:-len(sentence.word_idx[parent])] +
-                                    child[:-len(sentence.word_idx[child])] + "c17" : num})
-                        num += 1
+                    if parent[:-len(sentence.word_idx[parent])] in self.filtered and \
+                                    child[:-len(sentence.word_idx[child])] in self.filtered:
+                        if parent[:-len(sentence.word_idx[parent])] + \
+                                child[:-len(sentence.word_idx[child])] + "c16"  not in dic:
+                            dic.update({parent[:-len(sentence.word_idx[parent])] +
+                                        child[:-len(sentence.word_idx[child])] + "c16" : num})
+                            num += 1
         return dic, num
 
     # feature17: POS of father + POS of child + POS of grandson
     def f_posg_posp_posc(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -575,7 +613,7 @@ class CFeatures:
 
     # feature18: father + child + grandson
     def f_grandpa_parent_child(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -585,48 +623,169 @@ class CFeatures:
                             son = child[:-len(sentence.word_idx[child])]
                             pap = parent[:-len(sentence.word_idx[parent])]
                             gran = grandson[:-len(sentence.word_idx[grandson])]
-                            if pap + son + gran + "c18" not in dic:
-                                dic.update({pap + son + gran + "c18" : num})
+                            if pap in self.filtered and \
+                                    son in self.filtered and \
+                                    gran in self.filtered:
+                                if pap + son + gran + "c18" not in dic:
+                                    dic.update({pap + son + gran + "c18": num})
+                                    num += 1
+        return dic, num
+
+    # feature19: POS of grandgrandpa + POS of grandpa + POS of father + POS of child
+    def f_posgg_posg_posp_posc(self, sentences, idx):
+        dic = collections.OrderedDict()
+        num = idx
+        for sentence in sentences:
+            for parent, children in sentence.word_children.items():
+                for child in children:
+                    if child in sentence.word_children:
+                        for grandson in sentence.word_children[child]:
+                            if grandson in sentence.word_children:
+                                for grandgrandson in sentence.word_children[grandson]:
+                                    posp = sentence.word_pos[parent]
+                                    posc = sentence.word_pos[child]
+                                    posg = sentence.word_pos[grandson]
+                                    posgg = sentence.word_pos[grandgrandson]
+                                    if posp + posc + posg + posgg + "c19" not in dic:
+                                        dic.update({posp + posc + posg + posgg + "c19": num})
+                                        num += 1
+        return dic, num
+
+    # feature20: grandgrandpa + grandpa + father + child
+    def f_grandgrandpa_grandpa_parent_child(self, sentences, idx):
+        dic = collections.OrderedDict()
+        num = idx
+        for sentence in sentences:
+            for parent, children in sentence.word_children.items():
+                for child in children:
+                    if child in sentence.word_children:
+                        for grandson in sentence.word_children[child]:
+                            if grandson in sentence.word_children:
+                                for grandgrandson in sentence.word_children[grandson]:
+                                    son = child[:-len(sentence.word_idx[child])]
+                                    pap = parent[:-len(sentence.word_idx[parent])]
+                                    gran = grandson[:-len(sentence.word_idx[grandson])]
+                                    grangran = grandgrandson[:-len(sentence.word_idx[grandgrandson])]
+                                    if pap in self.filtered and \
+                                                    son in self.filtered and \
+                                                    gran in self.filtered and \
+                                                    grangran in self.filtered:
+                                        if pap + son + gran + grangran+ "c20" not in dic:
+                                            dic.update({pap + son + gran +grangran + "c20": num})
+                                            num += 1
+        return dic, num
+
+    # feature21: POS of parent + POS of child1 + POS of child2
+    def f_posp_posc1_posc2(self, sentences, idx):
+        dic = collections.OrderedDict()
+        num = idx
+        for sentence in sentences:
+            for parent, children in sentence.word_children.items():
+                for child1 in children:
+                    for child2 in children:
+                        posp = sentence.word_pos[parent]
+                        if sentence.word_idx[child1] != sentence.word_idx[child2]:
+                            posc1 = sentence.word_pos[child1]
+                            posc2 = sentence.word_pos[child2]
+                            if posp + posc1 + posc2 + "f21" not in dic:
+                                dic.update({posp + posc1 + posc2 + "f21": num})
                                 num += 1
         return dic, num
 
-    # # feature19: POS of grandgrandpa + POS of grandpa + POS of father + POS of child
-    # def f_posgg_posg_posp_posc(self, sentences, idx):
-    #     dic = {}
+    # feature22: parent + POS of parent + POS of child1 + POS of child2
+    def f_parent_posp_posc1_posc2(self, sentences, idx):
+        dic = collections.OrderedDict()
+        num = idx
+        for sentence in sentences:
+            for parent, children in sentence.word_children.items():
+                for child1 in children:
+                    for child2 in children:
+                        posp = sentence.word_pos[parent]
+                        if sentence.word_idx[child1] != sentence.word_idx[child2]:
+                            posc1 = sentence.word_pos[child1]
+                            posc2 = sentence.word_pos[child2]
+                            pap = parent[:-len(sentence.word_idx[parent])]
+                            if pap in self.filtered:
+                                if pap + posp + posc1 + posc2 + "f22" not in dic:
+                                    dic.update({pap + posp + posc1 + posc2 + "f22": num})
+                                    num += 1
+        return dic, num
+
+    # feature23: POS of parent + POS of child1 + POS of child2 + child1
+    def f_posp_posc1_posc2_child(self, sentences, idx):
+        dic = collections.OrderedDict()
+        num = idx
+        for sentence in sentences:
+            for parent, children in sentence.word_children.items():
+                for child1 in children:
+                    for child2 in children:
+                        posp = sentence.word_pos[parent]
+                        if sentence.word_idx[child1] != sentence.word_idx[child2]:
+                            posc1 = sentence.word_pos[child1]
+                            posc2 = sentence.word_pos[child2]
+                            son = child2[:-len(sentence.word_idx[child2])]
+                            if son in self.filtered:
+                                if posp + posc1 + posc2 + son + "f23" not in dic:
+                                    dic.update({posp + posc1 + posc2 + son + "f23": num})
+                                    num += 1
+        return dic, num
+
+    # # feature24: POS of parent + POS of child1 + POS of child2 + POS of child3
+    # def f_posp_posc1_posc2_posc3(self, sentences, idx):
+    #     dic = collections.OrderedDict()
     #     num = idx
     #     for sentence in sentences:
     #         for parent, children in sentence.word_children.items():
-    #             for child in children:
-    #                 if child in sentence.word_children:
-    #                     for grandson in sentence.word_children[child]:
-    #                         for grandgrandson in sentence.word_children[grandson]:
-    #                             posp = sentence.word_pos[parent]
-    #                             posc = sentence.word_pos[child]
-    #                             posg = sentence.word_pos[grandson]
-    #                             posgg = sentence.word_pos[grandgrandson]
-    #                             if posp + posc + posg not in dic:
-    #                                 dic.update({posp + posc + posg + posgg: num})
+    #             for child1 in children:
+    #                 for child2 in children:
+    #                     for
+    #                     posp = sentence.word_pos[parent]
+    #                     if sentence.word_idx[child1] != sentence.word_idx[child2]:
+    #                         posc1 = sentence.word_pos[child1]
+    #                         posc2 = sentence.word_pos[child2]
+    #                         if posp + posc1 + posc2 + "f21" not in dic:
+    #                             dic.update({posp + posc1 + posc2 + "f21": num})
+    #                             num += 1
+    #     return dic, num
+    #
+    # # feature25: parent + POS of parent + POS of child1 + POS of child2
+    # def f_parent_posp_posc1_posc2(self, sentences, idx):
+    #     dic = collections.OrderedDict()
+    #     num = idx
+    #     for sentence in sentences:
+    #         for parent, children in sentence.word_children.items():
+    #             for child1 in children:
+    #                 for child2 in children:
+    #                     posp = sentence.word_pos[parent]
+    #                     if sentence.word_idx[child1] != sentence.word_idx[child2]:
+    #                         posc1 = sentence.word_pos[child1]
+    #                         posc2 = sentence.word_pos[child2]
+    #                         pap = parent[:-len(sentence.word_idx[parent])]
+    #                         if pap in self.filtered:
+    #                             if pap + posp + posc1 + posc2 + "f22" not in dic:
+    #                                 dic.update({pap + posp + posc1 + posc2 + "f22": num})
     #                                 num += 1
     #     return dic, num
     #
-    # # feature20: grandgrandpa + grandpa + father + child
-    # def f_grandgrandpa_grandpa_parent_child(self, sentences, idx):
-    #     dic = {}
+    # # feature26: POS of parent + POS of child1 + POS of child2 + child1
+    # def f_posp_posc1_posc2_child(self, sentences, idx):
+    #     dic = collections.OrderedDict()
     #     num = idx
     #     for sentence in sentences:
     #         for parent, children in sentence.word_children.items():
-    #             for child in children:
-    #                 if child in sentence.word_children:
-    #                     for grandson in sentence.word_children[child]:
-    #                         for grandgrandson in sentence.word_children[grandson]:
-    #                             granpa = child[:-len(sentence.word_idx[child])]
-    #                             grangran = parent[:-len(sentence.word_idx[parent])]
-    #                             pap = grandson[:-len(sentence.word_idx[grandson])]
-    #                             son = grandgrandson[:-len(sentence.word_idx[grandgrandson])]
-    #                             if grangran + granpa + pap + son not in dic:
-    #                                 dic.update({grangran + granpa + pap + son: num})
+    #             for child1 in children:
+    #                 for child2 in children:
+    #                     posp = sentence.word_pos[parent]
+    #                     if sentence.word_idx[child1] != sentence.word_idx[child2]:
+    #                         posc1 = sentence.word_pos[child1]
+    #                         posc2 = sentence.word_pos[child2]
+    #                         son = child2[:-len(sentence.word_idx[child2])]
+    #                         if son in self.filtered:
+    #                             if posp + posc1 + posc2 + son + "f23" not in dic:
+    #                                 dic.update({posp + posc1 + posc2 + son + "f23": num})
     #                                 num += 1
     #     return dic, num
+
 
     def f_xy(self,word_children, word_pos, word_idx, idx_word,slen,mode):
         index_vec = np.zeros(self.f_len)
@@ -828,12 +987,55 @@ class CFeatures:
                                                       grandson[:-len(word_idx[grandson])]+ "c18"]] += 1
                             except:
                                 pass
+
+                            try:
+                                grandgrandsons = word_children[grandson]
+
+                                for grandgrandson in grandgrandsons:
+                                    posgg = word_pos[grandgrandson]
+
+                                    try:
+                                        # fc19:posp + posc + posg + posgg
+                                        index_vec[self.f_dict[posp + posc + posg + posgg + "c19"]] += 1
+                                    except:
+                                        pass
+
+                                    try:
+                                        # fc20: parent + child + grandson + grandgrandson
+                                        index_vec[self.f_dict[parent[:-len(word_idx[parent])] +
+                                                              child[:-len(word_idx[child])] +
+                                                              grandson[:-len(word_idx[grandson])] +
+                                                              grandgrandson[:-len(word_idx[grandgrandson])] + "c20"]] += 1
+                                    except:
+                                        pass
+
+                            except:
+                                pass
+
                     except:
                         pass
 
+                    for child2 in children:
+                        if word_idx[child] != word_idx[child2]:
+                            posc2 = word_pos[child2]
 
+                            try:
+                                # fc21:posp + posc + posc2
+                                index_vec[self.f_dict[posp + posc + posc2 + "c21"]] += 1
+                            except:
+                                pass
 
+                            try:
+                                # fc22:father + posp + posc + posc2
+                                index_vec[self.f_dict[parent[:-len(word_idx[parent])] + posp + posc + posc2 + "c22"]] += 1
+                            except:
+                                pass
 
+                            try:
+                                # fc23:posp + posc + posc2 + child
+                                index_vec[self.f_dict[posp + posc + posc2 + child2[:-len(word_idx[child2])] + "c23"]] += 1
+                            except:
+                                pass
 
 
         return index_vec

@@ -1,18 +1,10 @@
 from chu_liu import *
 import numpy as np
 from copy import copy
+import pickle
+import utils
 
-sucs = {'a':['b','c'],'b':['c'],'c':['b']}
-w = {'a': {'a': 1, 'b':2, 'c': 1}, 'b': {'b':1,'c':2}, 'c':{'a':2,'b':1,'c':1}}
-g = Digraph((sucs),lambda u,v: -w[u][v])
-print(g.successors)
-for x,y in g.iteredges():
-    print(x,y)
+w1 = pickle.load(open("weights_vec/comp_w_" + str(utils.ITER) + "a", 'rb'))
+w2 = pickle.load(open("weights_vec/comp_w_" + str(utils.ITER) + "b", 'rb'))
 
-print("after greedy:")
-print(g.greedy().successors)
-
-g = g.mst()
-print("after MST:")
-print(g.successors)
-print(sucs)
+# for wa,wb

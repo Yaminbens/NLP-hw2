@@ -1,7 +1,6 @@
 import re
 from Sentence import *
 
-
 class Parser:
 
     def __init__(self, file):
@@ -18,6 +17,12 @@ class Parser:
                 else:
 
                     match = re.split("\\s+", line)
-                    sentence.append([match[0], match[1], match[3],match[6]])
+                    try:
+                        wordproc = float(match[1])
+                        wordproc = "NUMBERWORD"
+                    except:
+                        wordproc = match[1].lower()
+
+                    sentence.append([match[0], wordproc, match[3],match[6],match[1]])
             new_sentence = Sentence(sentence)
             self.sentences.append(new_sentence)

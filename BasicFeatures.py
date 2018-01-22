@@ -1,6 +1,7 @@
 import numpy as np
 from copy import copy
 import utils
+import collections
 
 class BFeatures:
 
@@ -28,7 +29,7 @@ class BFeatures:
 
         self.f_len = idx #length of feature vector
         print(self.f_len)
-        self.f_dict = {}
+        self.f_dict = collections.OrderedDict()
         for d in (self.f1, self.f2, self.f3, self.f4, self.f5, self.f6, self.f8, self.f10, self.f13):
             self.f_dict.update(d)
 
@@ -50,7 +51,7 @@ class BFeatures:
 
     #feature1: parent word + pos(parent)
     def f_parent_posp(self,sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent in sentence.word_children.keys():
@@ -62,7 +63,7 @@ class BFeatures:
 
     #feature2: parent word
     def f_parent(self,sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent in sentence.word_children.keys():
@@ -73,7 +74,7 @@ class BFeatures:
 
     # feature3: POS of parent word
     def f_posp(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent in sentence.word_children.keys():
@@ -86,7 +87,7 @@ class BFeatures:
 
     # feature4: child word + pos(parent)
     def f_child_posc(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent,children in sentence.word_children.items():
@@ -99,7 +100,7 @@ class BFeatures:
 
     # feature5: child word
     def f_child(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -111,7 +112,7 @@ class BFeatures:
 
     # feature6: POS of child word
     def f_posc(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -124,7 +125,7 @@ class BFeatures:
 
     # feature8:  POS of parent + POS of child + child word
     def f_parent_child_posc(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -138,7 +139,7 @@ class BFeatures:
 
     # feature10:  POS of parent + POS of child + parent word
     def f_parent_posp_posc(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -152,7 +153,7 @@ class BFeatures:
 
     # feature13: POS of parent + POS of child
     def f_posp_posc(self, sentences, idx):
-        dic = {}
+        dic = collections.OrderedDict()
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
