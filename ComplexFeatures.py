@@ -33,6 +33,7 @@ class CFeatures:
         self.fc4, idx = self.f_posp_posap_posc_posac(sentences, idx)
         self.fc5, idx = self.f_posp_posm_posc(sentences, idx)
         self.fc6, idx = self.f_parent_middle_child(sentences, idx)
+        self.fc6b, idx = self.f_parent_posm_child(sentences, idx)
         self.fc7, idx = self.f_parent_bparent_child_bchild(sentences, idx)
         self.fc8, idx = self.f_parent_aparent_child_bchild(sentences, idx)
         self.fc9, idx = self.f_parent_bparent_child_achild(sentences, idx)
@@ -43,13 +44,13 @@ class CFeatures:
         self.fc14, idx = self.f_parent_child_posc(sentences, idx)      # basic 9
         self.fc15, idx = self.f_parent_posp_child(sentences, idx)      # basic 11
         self.fc16, idx = self.f_parent_child(sentences, idx)           # baisc 12
-        self.fc17, idx = self.f_posg_posp_posc(sentences, idx)
-        self.fc18, idx = self.f_grandpa_parent_child(sentences, idx)
-        self.fc19, idx = self.f_posgg_posg_posp_posc(sentences, idx)
-        self.fc20, idx = self.f_grandgrandpa_grandpa_parent_child(sentences, idx)
-        self.fc21, idx = self.f_posp_posc1_posc2(sentences, idx)
-        self.fc22, idx = self.f_parent_posp_posc1_posc2(sentences, idx)
-        self.fc23, idx = self.f_posp_posc1_posc2_child(sentences, idx)
+        # self.fc17, idx = self.f_posg_posp_posc(sentences, idx)
+        # self.fc18, idx = self.f_grandpa_parent_child(sentences, idx)
+        # self.fc19, idx = self.f_posgg_posg_posp_posc(sentences, idx)
+        # self.fc20, idx = self.f_grandgrandpa_grandpa_parent_child(sentences, idx)
+        # self.fc21, idx = self.f_posp_posc1_posc2(sentences, idx)
+        # self.fc22, idx = self.f_parent_posp_posc1_posc2(sentences, idx)
+        # self.fc23, idx = self.f_posp_posc1_posc2_child(sentences, idx)
 
         self.f_len = idx #length of feature vector
         # print(self.f_len)
@@ -59,8 +60,9 @@ class CFeatures:
                   self.fc1, self.fc2, self.fc3, self.fc4, self.fc5, self.fc6,
                   self.fc7, self.fc8, self.fc9, self.fc10, self.fc11,self.fc12,
                   self.fc13, self.fc14, self.fc15, self.fc16 ,
-                  self.fc17, self.fc18, self.fc19, self.fc20,
-                  self.fc21, self.fc22, self.fc23):
+                  # self.fc17, self.fc18, self.fc19, self.fc20,
+                  # self.fc21, self.fc22, self.fc23
+                  ):
 
             self.f_dict.update(d)
 
@@ -364,16 +366,39 @@ class CFeatures:
                         start_idx = min(int(sentence.word_idx[parent]), int(sentence.word_idx[child]))
                         end_idx = max(int(sentence.word_idx[parent]), int(sentence.word_idx[child]))
                         for idx in range(start_idx + 1, end_idx):
-                            middle = sentence.idx_word[str(idx)]
+                            posm = sentence.word_pos[sentence.idx_word[str(idx)]]
                             if parent[:-len(sentence.word_idx[parent])] in self.filtered and\
-                                            middle[:-len(sentence.word_idx[middle])] in self.filtered and\
+                                            child[:-len(sentence.word_idx[child])] in self.filtered:
+                                if parent[:-len(sentence.word_idx[parent])] + posm \
+                                        + child[:-len(sentence.word_idx[child])] + "c6b"  not in dic:
+                                        dic.update({parent[:-len(sentence.word_idx[parent])] +
+                                                    posm +
+                                                    child[:-len(sentence.word_idx[child])] + "c6b" : num})
+                                        num += 1
+        return dic, num
+
+
+    # feature c6b: parent + POS of middle word + child
+    def f_parent_posm_child(self, sentences, idx):
+        dic = collections.OrderedDict()
+        num = idx
+        for sentence in sentences:
+            for parent, children in sentence.word_children.items():
+                for child in children:
+                    if parent != "ROOT0":
+                        start_idx = min(int(sentence.word_idx[parent]), int(sentence.word_idx[child]))
+                        end_idx = max(int(sentence.word_idx[parent]), int(sentence.word_idx[child]))
+                        for idx in range(start_idx + 1, end_idx):
+                            middle = sentence.idx_word[str(idx)]
+                            if parent[:-len(sentence.word_idx[parent])] in self.filtered and \
+                                            middle[:-len(sentence.word_idx[middle])] in self.filtered and \
                                             child[:-len(sentence.word_idx[child])] in self.filtered:
                                 if parent[:-len(sentence.word_idx[parent])] + middle[:-len(sentence.word_idx[middle])] \
-                                        + child[:-len(sentence.word_idx[child])] + "c6"  not in dic:
-                                        dic.update({parent[:-len(sentence.word_idx[parent])] +
-                                                                middle[:-len(sentence.word_idx[middle])] +
-                                                                child[:-len(sentence.word_idx[child])] + "c6" : num})
-                                        num += 1
+                                        + child[:-len(sentence.word_idx[child])] + "c6" not in dic:
+                                    dic.update({parent[:-len(sentence.word_idx[parent])] +
+                                                middle[:-len(sentence.word_idx[middle])] +
+                                                child[:-len(sentence.word_idx[child])] + "c6": num})
+                                    num += 1
         return dic, num
 
     # feature c7: parent + preceding of parent + child +preceding of child
@@ -526,7 +551,7 @@ class CFeatures:
         return dic, num
 
 
-    # feature13:  parent word + POS of parent + child word + POS of child
+    # feature13:  parent word + POS of parent + child word + POS of child (f7)
     def f_parent_posp_child_posc(self, sentences, idx):
         dic = collections.OrderedDict()
         num = idx
@@ -544,7 +569,7 @@ class CFeatures:
                             num += 1
         return dic, num
 
-    # feature14:  parent word + child word + POS of child
+    # feature14:  parent word + child word + POS of child (f9)
     def f_parent_child_posc(self, sentences, idx):
         dic = collections.OrderedDict()
         num = idx
@@ -561,7 +586,7 @@ class CFeatures:
                             num += 1
         return dic, num
 
-    # feature15:  parent word + POS of parent + child word
+    # feature15:  parent word + POS of parent + child word (f11)
     def f_parent_posp_child(self, sentences, idx):
         dic = collections.OrderedDict()
         num = idx
@@ -578,7 +603,7 @@ class CFeatures:
                             num += 1
         return dic, num
 
-    # feature16:  parent word  + child word
+    # feature16:  parent word  + child word (f12)
     def f_parent_child(self, sentences, idx):
         dic = collections.OrderedDict()
         num = idx
@@ -902,6 +927,14 @@ class CFeatures:
                         except:
                             pass
 
+                        try:
+                            # fc6b: parent + posm + child
+                            index_vec[self.f_dict[parent[:-len(word_idx[parent])]+
+                                                  posm +
+                                                  child[:-len(word_idx[child])]+ "c6b"]] += 1
+                        except:
+                            pass
+
 
                     try:
                         # fc7: parent + bparent + child + bchild
@@ -970,71 +1003,71 @@ class CFeatures:
                     except:
                         pass
 
-                    try:
-                        grandsons = word_children[child]
-                        for grandson in grandsons:
-                            posg = word_pos[grandson]
-                            try:
-                                # fc17: posg + posp + posc
-                                index_vec[self.f_dict[posp + posc + posg+ "c17"]] += 1
-                            except:
-                                pass
-
-                            try:
-                                # fc18: parent + child + grandson
-                                index_vec[self.f_dict[parent[:-len(word_idx[parent])] +
-                                                      child[:-len(word_idx[child])] +
-                                                      grandson[:-len(word_idx[grandson])]+ "c18"]] += 1
-                            except:
-                                pass
-
-                            try:
-                                grandgrandsons = word_children[grandson]
-
-                                for grandgrandson in grandgrandsons:
-                                    posgg = word_pos[grandgrandson]
-
-                                    try:
-                                        # fc19:posp + posc + posg + posgg
-                                        index_vec[self.f_dict[posp + posc + posg + posgg + "c19"]] += 1
-                                    except:
-                                        pass
-
-                                    try:
-                                        # fc20: parent + child + grandson + grandgrandson
-                                        index_vec[self.f_dict[parent[:-len(word_idx[parent])] +
-                                                              child[:-len(word_idx[child])] +
-                                                              grandson[:-len(word_idx[grandson])] +
-                                                              grandgrandson[:-len(word_idx[grandgrandson])] + "c20"]] += 1
-                                    except:
-                                        pass
-
-                            except:
-                                pass
-
-                    except:
-                        pass
-
-                    for child2 in children:
-                        if word_idx[child] != word_idx[child2]:
-                            posc2 = word_pos[child2]
-
-                            try:
-                                # fc21:posp + posc + posc2
-                                index_vec[self.f_dict[posp + posc + posc2 + "c21"]] += 1
-                            except:
-                                pass
-
-                            try:
-                                # fc22:father + posp + posc + posc2
-                                index_vec[self.f_dict[parent[:-len(word_idx[parent])] + posp + posc + posc2 + "c22"]] += 1
-                            except:
-                                pass
-
-                            try:
-                                # fc23:posp + posc + posc2 + child
-                                index_vec[self.f_dict[posp + posc + posc2 + child2[:-len(word_idx[child2])] + "c23"]] += 1
-                            except:
-                                pass
+                    # try:
+                    #     grandsons = word_children[child]
+                    #     for grandson in grandsons:
+                    #         posg = word_pos[grandson]
+                    #         try:
+                    #             # fc17: posg + posp + posc
+                    #             index_vec[self.f_dict[posp + posc + posg+ "c17"]] += 1
+                    #         except:
+                    #             pass
+                    #
+                    #         try:
+                    #             # fc18: parent + child + grandson
+                    #             index_vec[self.f_dict[parent[:-len(word_idx[parent])] +
+                    #                                   child[:-len(word_idx[child])] +
+                    #                                   grandson[:-len(word_idx[grandson])]+ "c18"]] += 1
+                    #         except:
+                    #             pass
+                    #
+                    #         try:
+                    #             grandgrandsons = word_children[grandson]
+                    #
+                    #             for grandgrandson in grandgrandsons:
+                    #                 posgg = word_pos[grandgrandson]
+                    #
+                    #                 try:
+                    #                     # fc19:posp + posc + posg + posgg
+                    #                     index_vec[self.f_dict[posp + posc + posg + posgg + "c19"]] += 1
+                    #                 except:
+                    #                     pass
+                    #
+                    #                 try:
+                    #                     # fc20: parent + child + grandson + grandgrandson
+                    #                     index_vec[self.f_dict[parent[:-len(word_idx[parent])] +
+                    #                                           child[:-len(word_idx[child])] +
+                    #                                           grandson[:-len(word_idx[grandson])] +
+                    #                                           grandgrandson[:-len(word_idx[grandgrandson])] + "c20"]] += 1
+                    #                 except:
+                    #                     pass
+                    #
+                    #         except:
+                    #             pass
+                    #
+                    # except:
+                    #     pass
+                    #
+                    # for child2 in children:
+                    #     if word_idx[child] != word_idx[child2]:
+                    #         posc2 = word_pos[child2]
+                    #
+                    #         try:
+                    #             # fc21:posp + posc + posc2
+                    #             index_vec[self.f_dict[posp + posc + posc2 + "c21"]] += 1
+                    #         except:
+                    #             pass
+                    #
+                    #         try:
+                    #             # fc22:father + posp + posc + posc2
+                    #             index_vec[self.f_dict[parent[:-len(word_idx[parent])] + posp + posc + posc2 + "c22"]] += 1
+                    #         except:
+                    #             pass
+                    #
+                    #         try:
+                    #             # fc23:posp + posc + posc2 + child
+                    #             index_vec[self.f_dict[posp + posc + posc2 + child2[:-len(word_idx[child2])] + "c23"]] += 1
+                    #         except:
+                    #             pass
 
         return index_vec

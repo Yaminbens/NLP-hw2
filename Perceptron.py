@@ -2,6 +2,7 @@ import numpy as np
 from chu_liu import *
 from funcs import weights_calc
 import collections
+from random import shuffle
 
 class Perceptron:
 
@@ -9,15 +10,23 @@ class Perceptron:
         '''
         one iteration of perceptron on all sentences in corpus
         '''
-        for sentence in sentences:
-            weights = weights_calc(w, sentence, feats,mode)
 
-            all_successors = sentence.sentence_fc()
+        # reorder sentences
+        idxlist = [i for i in range(len(sentences))]
+        # shuffle(idxlist)
+
+
+
+
+        for i in idxlist:
+            weights = weights_calc(w, sentences[i], feats,mode)
+
+            all_successors = sentences[i].sentence_fc()
             graph = Digraph(all_successors, lambda u, v: weights[u][v])
             graph = graph.mst()
             # print(graph.successors)
-            fxy = feats.f_xy(collections.OrderedDict(sentence.word_children), sentence.word_pos, sentence.word_idx, sentence.idx_word, sentence.slen,mode)
-            fxy_tag = feats.f_xy(collections.OrderedDict(graph.successors), sentence.word_pos,sentence.word_idx, sentence.idx_word,sentence.slen,mode)
+            fxy = feats.f_xy(collections.OrderedDict(sentences[i].word_children), sentences[i].word_pos, sentences[i].word_idx, sentences[i].idx_word, sentences[i].slen,mode)
+            fxy_tag = feats.f_xy(collections.OrderedDict(graph.successors), sentences[i].word_pos,sentences[i].word_idx, sentences[i].idx_word,sentences[i].slen,mode)
 
 
             w += np.subtract(fxy, fxy_tag)

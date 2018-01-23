@@ -117,6 +117,13 @@ def f_uv(feats, sentence, u, v, mode):
                                               sentence.idx_word[v][:-len(v)]+ "c6"])
             except:
                 pass
+            try:
+                # fc6b: parent + posm + child
+                index_vec.append(feats.f_dict[sentence.idx_word[u][:-len(u)] +
+                                              posm +
+                                              sentence.idx_word[v][:-len(v)]+ "c6b"])
+            except:
+                pass
 
         try:
             # fc7: parent + bparent + child + bchild
@@ -185,75 +192,75 @@ def f_uv(feats, sentence, u, v, mode):
         except:
             pass
 
-        try:
-            grandsons = sentence.word_children[v]
-            for grandson in grandsons:
-                posg = sentence.word_pos[grandson]
-                try:
-                    # fc17: posp + posc + posg
-                    index_vec.append(feats.f_dict[posp + posc + posg+ "c17"])
-                except:
-                    pass
-
-                try:
-                    # fc18: parent + child + grandson
-                    index_vec.append(feats.f_dict[sentence.idx_word[u][:-len(u)] +
-                                                  sentence.idx_word[v][:-len(v)] +
-                                                  grandson[:-len(sentence.word_idx(grandson))]+ "c18"])
-                except:
-                    pass
-
-                try:
-                    grandgrandsons = sentence.word_children[grandson]
-
-                    for grandgrandson in grandgrandsons:
-                        posgg = sentence.word_pos[grandgrandson]
-
-                        try:
-                            # fc19:posp + posc + posg + posgg
-                            index_vec.append(feats.f_dict[posp + posc + posg + +posgg + "c19"])
-                        except:
-                            pass
-
-                        try:
-                            # fc20: parent + child + grandson + grandgrandson
-                            index_vec.append(feats.f_dict[sentence.idx_word[u][:-len(u)] +
-                                                  sentence.idx_word[v][:-len(v)] +
-                                                  grandson[:-len(sentence.word_idx[grandson])] +
-                                                  grandgrandson[:-len(sentence.word_idx[grandgrandson])] + "c20"])
-                        except:
-                            pass
-
-                except:
-                    pass
-
-        except:
-            pass
-
-        try:
-            for child2 in sentence.word_idx[sentence.idx_word[u]]:
-                if v != sentence.word_idx[child2]:
-                    posc2 = sentence.word_pos[child2]
-
-                    try:
-                        # fc21:posp + posc + posc2
-                        index_vec.append(feats.f_dict[posp + posc + posc2 + "c21"])
-                    except:
-                        pass
-
-                    try:
-                        # fc22:father + posp + posc + posc2
-                        index_vec.append(feats.f_dict[sentence.idx_word[u][:-len(u)] + posp + posc + posc2 + "c22"])
-                    except:
-                        pass
-
-                    try:
-                        # fc23:posp + posc + posc2 + child
-                        index_vec.append(feats.f_dict[posp + posc + posc2 + child2[:-len(sentence.word_idx[child2])] + "c23"])
-                    except:
-                        pass
-        except:
-            pass
+        # try:
+        #     grandsons = sentence.word_children[v]
+        #     for grandson in grandsons:
+        #         posg = sentence.word_pos[grandson]
+        #         try:
+        #             # fc17: posp + posc + posg
+        #             index_vec.append(feats.f_dict[posp + posc + posg+ "c17"])
+        #         except:
+        #             pass
+        #
+        #         try:
+        #             # fc18: parent + child + grandson
+        #             index_vec.append(feats.f_dict[sentence.idx_word[u][:-len(u)] +
+        #                                           sentence.idx_word[v][:-len(v)] +
+        #                                           grandson[:-len(sentence.word_idx(grandson))]+ "c18"])
+        #         except:
+        #             pass
+        #
+        #         try:
+        #             grandgrandsons = sentence.word_children[grandson]
+        #
+        #             for grandgrandson in grandgrandsons:
+        #                 posgg = sentence.word_pos[grandgrandson]
+        #
+        #                 try:
+        #                     # fc19:posp + posc + posg + posgg
+        #                     index_vec.append(feats.f_dict[posp + posc + posg + +posgg + "c19"])
+        #                 except:
+        #                     pass
+        #
+        #                 try:
+        #                     # fc20: parent + child + grandson + grandgrandson
+        #                     index_vec.append(feats.f_dict[sentence.idx_word[u][:-len(u)] +
+        #                                           sentence.idx_word[v][:-len(v)] +
+        #                                           grandson[:-len(sentence.word_idx[grandson])] +
+        #                                           grandgrandson[:-len(sentence.word_idx[grandgrandson])] + "c20"])
+        #                 except:
+        #                     pass
+        #
+        #         except:
+        #             pass
+        #
+        # except:
+        #     pass
+        #
+        # try:
+        #     for child2 in sentence.word_idx[sentence.idx_word[u]]:
+        #         if v != sentence.word_idx[child2]:
+        #             posc2 = sentence.word_pos[child2]
+        #
+        #             try:
+        #                 # fc21:posp + posc + posc2
+        #                 index_vec.append(feats.f_dict[posp + posc + posc2 + "c21"])
+        #             except:
+        #                 pass
+        #
+        #             try:
+        #                 # fc22:father + posp + posc + posc2
+        #                 index_vec.append(feats.f_dict[sentence.idx_word[u][:-len(u)] + posp + posc + posc2 + "c22"])
+        #             except:
+        #                 pass
+        #
+        #             try:
+        #                 # fc23:posp + posc + posc2 + child
+        #                 index_vec.append(feats.f_dict[posp + posc + posc2 + child2[:-len(sentence.word_idx[child2])] + "c23"])
+        #             except:
+        #                 pass
+        # except:
+        #     pass
 
 
     return index_vec
@@ -275,9 +282,11 @@ def weights_calc(w, sentence, feats,mode):
             if child not in weights[parent]:
                 uidx = sentence.word_idx[parent]
                 vidx = sentence.word_idx[child]
-                if uidx == vidx or vidx == 0:
-                    weights[parent].update({child: 0})
-                else:
+                # if uidx == vidx or vidx == 0:
+                #     weights[parent].update({child: -1000})
+                # else:
+                #     weights[parent].update({child: w_f(w, f_uv(feats, sentence, uidx, vidx,mode))})
+                if uidx != vidx and vidx != 0:
                     weights[parent].update({child: w_f(w, f_uv(feats, sentence, uidx, vidx,mode))})
 
     return weights
