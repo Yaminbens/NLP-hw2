@@ -6,15 +6,16 @@ from main import  *
 
 class CFeatures:
 
-    def __init__(self, sentences):
+    def __init__(self, sentences,th):
+        self.th = th
 
         #preprocessing
-        self.wordcounts = collections.OrderedDict()
+        self.wordcounts = {}
         self.countwords(sentences)
         # print(self.wordcounts)
         self.filtered = []
         self.filterwords()
-        print(self.filtered)
+        # print(self.filtered)
 
 
         idx = 0
@@ -54,7 +55,7 @@ class CFeatures:
 
         self.f_len = idx #length of feature vector
         # print(self.f_len)
-        self.f_dict = collections.OrderedDict()
+        self.f_dict = {}
         feat_list = []
         for d in (self.f1, self.f2, self.f3, self.f4, self.f5, self.f6, self.f8, self.f10, self.f13,
                   self.fc1, self.fc2, self.fc3, self.fc4, self.fc5, self.fc6,
@@ -86,7 +87,7 @@ class CFeatures:
 
     def filterwords(self):
         for word,val in self.wordcounts.items():
-            if val >= utils.THRESHOLD :
+            if val >= self.th :
                 self.filtered.append(word)
 
 
@@ -96,7 +97,7 @@ class CFeatures:
 
     #feature1: parent word + pos(parent)
     def f_parent_posp(self,sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent in sentence.word_children.keys():
@@ -110,7 +111,7 @@ class CFeatures:
 
     #feature2: parent word
     def f_parent(self,sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent in sentence.word_children.keys():
@@ -122,7 +123,7 @@ class CFeatures:
 
     # feature3: POS of parent word
     def f_posp(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent in sentence.word_children.keys():
@@ -135,7 +136,7 @@ class CFeatures:
 
     # feature4: child word + pos(parent)
     def f_child_posc(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent,children in sentence.word_children.items():
@@ -149,7 +150,7 @@ class CFeatures:
 
     # feature5: child word
     def f_child(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -162,7 +163,7 @@ class CFeatures:
 
     # feature6: POS of child word
     def f_posc(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -175,7 +176,7 @@ class CFeatures:
 
     # feature8:  POS of parent + POS of child + child word
     def f_posp_posc_child(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -190,7 +191,7 @@ class CFeatures:
 
     # feature10:  POS of parent + POS of child + parent word
     def f_parent_posp_posc(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -205,7 +206,7 @@ class CFeatures:
 
     # feature13: POS of parent + POS of child
     def f_posp_posc(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -219,7 +220,7 @@ class CFeatures:
 
     # feature c1: POS of parent + POS preceding of parent + POS of child + POS preceding of child
     def f_posp_posbp_posc_posbc(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -249,7 +250,7 @@ class CFeatures:
 
     # feature c2: POS of parent + POS following of parent + POS of child + POS preceding of child
     def f_posp_posap_posc_posbc(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -279,7 +280,7 @@ class CFeatures:
 
     # feature c3: POS of parent + POS preceding of parent + POS of child + POS following of child
     def f_posp_posbp_posc_posac(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -309,7 +310,7 @@ class CFeatures:
 
     # feature c4: POS of parent + POS following of parent + POS of child + POS following of child
     def f_posp_posap_posc_posac(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -338,7 +339,7 @@ class CFeatures:
 
     # feature c5: POS of parent + POS of middle word + POS of child
     def f_posp_posm_posc(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -357,7 +358,7 @@ class CFeatures:
 
     # feature c6: parent + middle word + child
     def f_parent_middle_child(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -380,7 +381,7 @@ class CFeatures:
 
     # feature c6b: parent + POS of middle word + child
     def f_parent_posm_child(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -403,7 +404,7 @@ class CFeatures:
 
     # feature c7: parent + preceding of parent + child +preceding of child
     def f_parent_bparent_child_bchild(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -431,7 +432,7 @@ class CFeatures:
 
     # feature c8:  parent + following of parent + child + preceding of child
     def f_parent_aparent_child_bchild(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -462,7 +463,7 @@ class CFeatures:
 
     # feature c9: parent + preceding of parent + child + following of child
     def f_parent_bparent_child_achild(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -494,7 +495,7 @@ class CFeatures:
 
     # feature c10:  parent + following of parent + child + following of child
     def f_parent_aparent_child_achild(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -527,7 +528,7 @@ class CFeatures:
 
     # feature c11:  distance from parent to child
     def f_indices_distance(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -541,7 +542,7 @@ class CFeatures:
 
     # feature c12:  edge direction from parent to child
     def f_direction(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         dic.update({"RRRR": num})
         num += 1
@@ -553,7 +554,7 @@ class CFeatures:
 
     # feature13:  parent word + POS of parent + child word + POS of child (f7)
     def f_parent_posp_child_posc(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -571,7 +572,7 @@ class CFeatures:
 
     # feature14:  parent word + child word + POS of child (f9)
     def f_parent_child_posc(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -588,7 +589,7 @@ class CFeatures:
 
     # feature15:  parent word + POS of parent + child word (f11)
     def f_parent_posp_child(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -605,7 +606,7 @@ class CFeatures:
 
     # feature16:  parent word  + child word (f12)
     def f_parent_child(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -621,7 +622,7 @@ class CFeatures:
 
     # feature17: POS of father + POS of child + POS of grandson
     def f_posg_posp_posc(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -638,7 +639,7 @@ class CFeatures:
 
     # feature18: father + child + grandson
     def f_grandpa_parent_child(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -658,7 +659,7 @@ class CFeatures:
 
     # feature19: POS of grandgrandpa + POS of grandpa + POS of father + POS of child
     def f_posgg_posg_posp_posc(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -678,7 +679,7 @@ class CFeatures:
 
     # feature20: grandgrandpa + grandpa + father + child
     def f_grandgrandpa_grandpa_parent_child(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -702,7 +703,7 @@ class CFeatures:
 
     # feature21: POS of parent + POS of child1 + POS of child2
     def f_posp_posc1_posc2(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -719,7 +720,7 @@ class CFeatures:
 
     # feature22: parent + POS of parent + POS of child1 + POS of child2
     def f_parent_posp_posc1_posc2(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -738,7 +739,7 @@ class CFeatures:
 
     # feature23: POS of parent + POS of child1 + POS of child2 + child1
     def f_posp_posc1_posc2_child(self, sentences, idx):
-        dic = collections.OrderedDict()
+        dic = {}
         num = idx
         for sentence in sentences:
             for parent, children in sentence.word_children.items():
@@ -757,7 +758,7 @@ class CFeatures:
 
     # # feature24: POS of parent + POS of child1 + POS of child2 + POS of child3
     # def f_posp_posc1_posc2_posc3(self, sentences, idx):
-    #     dic = collections.OrderedDict()
+    #     dic = {}
     #     num = idx
     #     for sentence in sentences:
     #         for parent, children in sentence.word_children.items():
@@ -775,7 +776,7 @@ class CFeatures:
     #
     # # feature25: parent + POS of parent + POS of child1 + POS of child2
     # def f_parent_posp_posc1_posc2(self, sentences, idx):
-    #     dic = collections.OrderedDict()
+    #     dic = {}
     #     num = idx
     #     for sentence in sentences:
     #         for parent, children in sentence.word_children.items():
@@ -794,7 +795,7 @@ class CFeatures:
     #
     # # feature26: POS of parent + POS of child1 + POS of child2 + child1
     # def f_posp_posc1_posc2_child(self, sentences, idx):
-    #     dic = collections.OrderedDict()
+    #     dic = {}
     #     num = idx
     #     for sentence in sentences:
     #         for parent, children in sentence.word_children.items():

@@ -274,11 +274,11 @@ def w_f(w, f):
 
 
 def weights_calc(w, sentence, feats,mode):
-    weights = collections.OrderedDict()
+    weights = {}
     for pidx, parent in sentence.idx_word.items():  # includes root
         for cidx, child in sentence.idx_word.items():
             if parent not in weights:
-                weights.update({parent: collections.OrderedDict()})
+                weights.update({parent: {}})
             if child not in weights[parent]:
                 uidx = sentence.word_idx[parent]
                 vidx = sentence.word_idx[child]
@@ -320,4 +320,4 @@ def evaluate(file1, file2):
             perc += 1
         num += 1
 
-    print("correct: ", perc/num)
+    return  perc/num

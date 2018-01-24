@@ -6,15 +6,15 @@ TEST = "test.labeled"
 MODE = "C" #complex
 # MODE = "B" #basic
 
-ITER = 15
-THRESHOLD = 3
+# ITER = 1
+# THRESHOLD = 3
 
 # W = "c1w_" + str(ITER)  + "_RAND"
 
-W = "comp_w_" + str(ITER) + "c"#+ "_RAND"
+W = "comp_w_" + "c"#+ "_RAND"
 W_VEC = "weights_vec/" + W
 
-FEAT = "_th_" + str(THRESHOLD)
+FEAT = "_th_"
 
 
 TRAIN_R = "results/"+"train with " + W +FEAT

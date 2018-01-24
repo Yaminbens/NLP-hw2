@@ -9,35 +9,29 @@ from Inference import *
 from funcs import evaluate
 
 def main():
+    results = open("result","w")
+    # for idxs in (3,4):
+    #     for jdx in (1,2,4,6,8,10):
+    idxs = 3
+    jdx = 20
     d = Parser(utils.TRAIN)
     # d = Parser(utils.DUM)
-    f = CFeatures(d.sentences)
+    f = CFeatures(d.sentences, idxs)
     # f = BFeatures(d.sentences)
-    print("num of feats: ",f.f_len)
-    # print("feats:", f.f_dict)
+    # print("num of feats: ",f.f_len)
     w = np.zeros(f.f_len)
     tt = time()
-    print("Training model for {} iterations...".format(utils.ITER))
-
-    for i in range(utils.ITER):
-        Perceptron(d.sentences,w,f,utils.MODE)
-    print("time in seconds: {}".format(time()-tt))
-    # print("w:\n",w)
-    # pickle.dump(w, open(utils.W_VEC, 'wb'))
-    return w
-
-def infer(w):
+    results.write("Training model for {} iterations with threshold {}...\n".format(jdx,idxs))
+    perc = Perceptron(d.sentences, w, f, utils.MODE)
+    for i in range(jdx):
+        perc.train()
+    w = perc.getW()
+    results.write("time in seconds: {}\n".format(time() - tt))
     t = Parser(utils.TEST)
-    d = Parser(utils.TRAIN)
-    # d = Parser("dum")
-    # f = BFeatures(d.sentences)
-    f = CFeatures(d.sentences)
-    print("num of feats: ",f.f_len)
-    # w = pickle.load(open(utils.W_VEC, 'rb'))
     inf = Inference(w, t.sentences, f,utils.MODE)
     inf.tag_text(utils.TEST_R)
-    evaluate(utils.TEST, utils.TEST_R)
+    res = evaluate(utils.TEST, utils.TEST_R)
+    results.write("correct: {}\n\n\n".format(res))
 
 if __name__ == "__main__":
     w = main()
-    infer(w)

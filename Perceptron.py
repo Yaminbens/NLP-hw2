@@ -10,26 +10,34 @@ class Perceptron:
         '''
         one iteration of perceptron on all sentences in corpus
         '''
-
+        self.sentences =sentences
+        self.w = w
+        self.feats = feats
+        self.mode = mode
         # reorder sentences
-        idxlist = [i for i in range(len(sentences))]
+        self.idxlist = [i for i in range(len(sentences))]
         # shuffle(idxlist)
 
 
 
 
-        for i in idxlist:
-            weights = weights_calc(w, sentences[i], feats,mode)
+    def train(self):
+        for i in self.idxlist:
+            weights = weights_calc(self.w, self.sentences[i], self.feats, self.mode)
 
-            all_successors = sentences[i].sentence_fc()
+            all_successors = self.sentences[i].sentence_fc()
             graph = Digraph(all_successors, lambda u, v: weights[u][v])
             graph = graph.mst()
             # print(graph.successors)
-            fxy = feats.f_xy(collections.OrderedDict(sentences[i].word_children), sentences[i].word_pos, sentences[i].word_idx, sentences[i].idx_word, sentences[i].slen,mode)
-            fxy_tag = feats.f_xy(collections.OrderedDict(graph.successors), sentences[i].word_pos,sentences[i].word_idx, sentences[i].idx_word,sentences[i].slen,mode)
+            fxy = self.feats.f_xy(collections.OrderedDict(self.sentences[i].word_children), self.sentences[i].word_pos,
+                                  self.sentences[i].word_idx, self.sentences[i].idx_word, self.sentences[i].slen,self.mode)
+            fxy_tag = self.feats.f_xy(collections.OrderedDict(graph.successors), self.sentences[i].word_pos,
+                                      self.sentences[i].word_idx, self.sentences[i].idx_word,self.sentences[i].slen,self.mode)
 
+            self.w += np.subtract(fxy, fxy_tag)
 
-            w += np.subtract(fxy, fxy_tag)
+    def getW(self):
+        return self.w
 
 
 
